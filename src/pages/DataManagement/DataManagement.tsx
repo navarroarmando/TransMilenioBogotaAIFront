@@ -20,7 +20,7 @@ const DataManagementContainer = () => {
 
   return (
     <div className="space-y-8 animate-fade-in">
-      <div className="bg-gradient-to-r from-[#002E5E] to-[#015EB0] dark:from-[#1a3a5c] dark:to-[#015EB0] rounded-2xl p-8 shadow-2xl">
+      <div className="bg-gradient-to-r from-[#3EA32A] to-[#2E7A1F] dark:from-[#1a3a5c] dark:to-[#015EB0] rounded-2xl p-8 shadow-2xl">
         <h1 className="text-4xl font-bold text-white mb-2">Gestión de Datos</h1>
         <p className="text-gray-200 dark:text-gray-300">Carga y valida archivos GTFS y matrices de demanda</p>
       </div>

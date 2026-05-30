@@ -11,9 +11,9 @@ const DataPreviewPresenter = ({ files, onDelete }: DataPreviewProps) => {
       case 'valid':
         return 'bg-[#3EA32A]/10 dark:bg-[#3EA32A]/20 text-[#3EA32A] dark:text-[#3EA32A] border border-[#3EA32A]/30';
       case 'invalid':
-        return 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200 border border-red-300 dark:border-red-600';
+        return 'bg-[#ffdad6] dark:bg-red-900/20 text-[#93000a] dark:text-red-200 border border-[#ba1a1a] dark:border-red-600';
       case 'validating':
-        return 'bg-[#015EB0]/10 dark:bg-[#015EB0]/20 text-[#015EB0] dark:text-[#015EB0] border border-[#015EB0]/30';
+        return 'bg-[#0f172a]/10 dark:bg-[#015EB0]/20 text-[#0f172a] dark:text-[#015EB0] border border-[#0f172a]/30';
       default:
         return 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600';
     }
@@ -41,50 +41,50 @@ const DataPreviewPresenter = ({ files, onDelete }: DataPreviewProps) => {
   };
 
   return (
-    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#015EB0]/10 dark:border-[#015EB0]/20 animate-slide-in">
-      <h3 className="text-xl font-bold text-[#002E5E] dark:text-white mb-6 flex items-center gap-2">
+    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#3EA32A]/20 dark:border-[#015EB0]/20 animate-slide-in">
+      <h3 className="text-xl font-bold text-[#191c1e] dark:text-white mb-6 flex items-center gap-2">
         <span className="w-2 h-8 bg-[#3EA32A] rounded-full"></span>
         Archivos Cargados
       </h3>
       {files.length === 0 ? (
         <div className="text-center py-12">
-          <div className="w-16 h-16 mx-auto mb-4 bg-[#015EB0]/10 dark:bg-[#3EA32A]/10 rounded-full flex items-center justify-center">
-            <div className="w-8 h-8 bg-[#015EB0]/20 dark:bg-[#3EA32A]/20 rounded-full"></div>
+          <div className="w-16 h-16 mx-auto mb-4 bg-[#3EA32A]/10 dark:bg-[#3EA32A]/10 rounded-full flex items-center justify-center">
+            <div className="w-8 h-8 bg-[#3EA32A]/20 dark:bg-[#3EA32A]/20 rounded-full"></div>
           </div>
           <p className="text-gray-500 dark:text-gray-400 text-sm">No hay archivos cargados</p>
         </div>
       ) : (
         <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-[#015EB0]/10 dark:divide-[#015EB0]/20">
-            <thead className="bg-[#002E5E]/5 dark:bg-[#015EB0]/10">
+          <table className="min-w-full divide-y divide-[#3EA32A]/20 dark:divide-[#015EB0]/20">
+            <thead className="bg-[#3EA32A]/5 dark:bg-[#015EB0]/10">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                   Nombre
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                   Tipo
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                   Tamaño
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                   Estado
                 </th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+                <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                   Acciones
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-white dark:bg-[#1a1a2e] divide-y divide-[#015EB0]/10 dark:divide-[#015EB0]/20">
+            <tbody className="bg-white dark:bg-[#1a1a2e] divide-y divide-[#3EA32A]/20 dark:divide-[#015EB0]/20">
               {files.map((file) => (
-                <tr key={file.id} className="hover:bg-[#015EB0]/5 dark:hover:bg-[#015EB0]/10 transition-colors">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#002E5E] dark:text-white">
+                <tr key={file.id} className="hover:bg-[#3EA32A]/5 dark:hover:bg-[#015EB0]/10 transition-colors">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#191c1e] dark:text-white">
                     {file.name}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
                     {file.type === 'gtfs' ? 'GTFS' : 'Demanda'}
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
                     {formatFileSize(file.size)}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -95,7 +95,7 @@ const DataPreviewPresenter = ({ files, onDelete }: DataPreviewProps) => {
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
                     <button
                       onClick={() => onDelete(file.id)}
-                      className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors font-semibold text-xs shadow-md hover:shadow-lg"
+                      className="px-4 py-2 bg-[#3EA32A] hover:bg-[#2E7A1F] text-white rounded-lg transition-colors font-semibold text-xs shadow-md hover:shadow-lg"
                     >
                       Eliminar
                     </button>

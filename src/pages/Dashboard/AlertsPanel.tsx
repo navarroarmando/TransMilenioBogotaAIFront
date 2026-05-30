@@ -15,17 +15,17 @@ const AlertsPanelPresenter = ({ alerts }: AlertsPanelProps) => {
       case 'warning':
         return 'bg-yellow-50 dark:bg-yellow-900/20 border-yellow-400 dark:border-yellow-600 text-yellow-800 dark:text-yellow-200';
       case 'error':
-        return 'bg-red-50 dark:bg-red-900/20 border-red-400 dark:border-red-600 text-red-800 dark:text-red-200';
+        return 'bg-[#ffdad6] dark:bg-red-900/20 border-[#ba1a1a] dark:border-red-600 text-[#93000a] dark:text-red-200';
       case 'info':
-        return 'bg-[#015EB0]/10 dark:bg-[#015EB0]/20 border-[#015EB0] dark:border-[#015EB0]/60 text-[#002E5E] dark:text-blue-200';
+        return 'bg-[#3EA32A]/10 dark:bg-[#015EB0]/20 border-[#3EA32A] dark:border-[#015EB0]/60 text-[#191c1e] dark:text-blue-200';
       default:
         return 'bg-gray-50 dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-800 dark:text-gray-200';
     }
   };
 
   return (
-    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#015EB0]/10 dark:border-[#015EB0]/20 animate-slide-in">
-      <h3 className="text-xl font-bold text-[#002E5E] dark:text-white mb-6 flex items-center gap-2">
+    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#3EA32A]/20 dark:border-[#015EB0]/20 animate-slide-in">
+      <h3 className="text-xl font-bold text-[#191c1e] dark:text-white mb-6 flex items-center gap-2">
         <span className="w-2 h-8 bg-[#3EA32A] rounded-full"></span>
         Alertas de Zonas Problemáticas
       </h3>

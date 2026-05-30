@@ -6,8 +6,8 @@ interface ValidationReportProps {
 
 const ValidationReportPresenter = ({ isValid, errors = [], warnings = [] }: ValidationReportProps) => {
   return (
-    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#015EB0]/10 dark:border-[#015EB0]/20 animate-slide-in">
-      <h3 className="text-xl font-bold text-[#002E5E] dark:text-white mb-6 flex items-center gap-2">
+    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#3EA32A]/20 dark:border-[#015EB0]/20 animate-slide-in">
+      <h3 className="text-xl font-bold text-[#191c1e] dark:text-white mb-6 flex items-center gap-2">
         <span className="w-2 h-8 bg-[#3EA32A] rounded-full"></span>
         Reporte de Validación
       </h3>
@@ -22,14 +22,14 @@ const ValidationReportPresenter = ({ isValid, errors = [], warnings = [] }: Vali
       ) : (
         <div className="space-y-4">
           {errors.length > 0 && (
-            <div className="bg-red-50 dark:bg-red-900/20 border-l-4 border-red-500 dark:border-red-600 px-6 py-4 rounded-xl">
-              <h4 className="font-bold text-red-600 dark:text-red-400 mb-3 flex items-center gap-2">
-                <span className="w-2 h-2 bg-red-500 rounded-full"></span>
+            <div className="bg-[#ffdad6] dark:bg-red-900/20 border-l-4 border-[#ba1a1a] dark:border-red-600 px-6 py-4 rounded-xl">
+              <h4 className="font-bold text-[#93000a] dark:text-red-400 mb-3 flex items-center gap-2">
+                <span className="w-2 h-2 bg-[#ba1a1a] rounded-full"></span>
                 Errores
               </h4>
               <ul className="space-y-2">
                 {errors.map((error, index) => (
-                  <li key={index} className="text-sm text-red-700 dark:text-red-300 font-medium pl-4 border-l-2 border-red-300 dark:border-red-500">{error}</li>
+                  <li key={index} className="text-sm text-[#93000a] dark:text-red-300 font-medium pl-4 border-l-2 border-[#ba1a1a] dark:border-red-500">{error}</li>
                 ))}
               </ul>
             </div>

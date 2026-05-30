@@ -13,16 +13,16 @@ interface KPICardProps {
 }
 
 const KPICard = ({ title, value, trend, trendLabel, icon }: KPICardProps) => {
-  const trendColor = trend && trend > 0 ? 'text-[#3EA32A]' : trend && trend < 0 ? 'text-red-500' : 'text-gray-500';
+  const trendColor = trend && trend > 0 ? 'text-[#3EA32A]' : trend && trend < 0 ? 'text-[#ba1a1a]' : 'text-gray-500';
   
   return (
-    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#015EB0]/10 dark:border-[#015EB0]/20 hover:shadow-2xl hover:border-[#015EB0]/30 dark:hover:border-[#015EB0]/40 transition-all duration-300 animate-slide-in transform hover:-translate-y-1">
+    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#3EA32A]/20 dark:border-[#015EB0]/20 hover:shadow-2xl hover:border-[#3EA32A]/30 dark:hover:border-[#015EB0]/40 transition-all duration-300 animate-slide-in transform hover:-translate-y-1">
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
-          <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 mb-1 uppercase tracking-wide">{title}</h3>
-          <p className="text-3xl font-bold text-[#002E5E] dark:text-white">{value}</p>
+          <h3 className="text-sm font-semibold text-[#5d3f3c] dark:text-gray-400 mb-1 uppercase tracking-wide">{title}</h3>
+          <p className="text-3xl font-bold text-[#191c1e] dark:text-white">{value}</p>
         </div>
-        {icon && <div className="text-[#015EB0] dark:text-[#3EA32A]">{icon}</div>}
+        {icon && <div className="text-[#3EA32A] dark:text-[#3EA32A]">{icon}</div>}
       </div>
       {trend !== undefined && (
         <div className="flex items-center gap-2">

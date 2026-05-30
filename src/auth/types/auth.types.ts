@@ -1,13 +1,13 @@
 export interface User {
   id: string;
-  email: string;
+  username: string;
   name: string;
   city: string;
   createdAt?: string;
 }
 
 export interface Credentials {
-  email: string;
+  username: string;
   password: string;
 }
 

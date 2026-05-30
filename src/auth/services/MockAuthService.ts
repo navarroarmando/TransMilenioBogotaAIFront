@@ -3,10 +3,10 @@ import type { AuthStrategy } from './AuthService';
 
 export class MockAuthStrategy implements AuthStrategy {
   async login(credentials: Credentials): Promise<AuthResult> {
-    if (credentials.email === 'admin@siva.gov' && credentials.password === 'admin123') {
+    if (credentials.username === 'admin@siva.gov' && credentials.password === 'admin123') {
       const user: User = {
         id: '1',
-        email: credentials.email,
+        username: credentials.username,
         name: 'Administrador',
         city: 'TransMilenio Bogotá',
         createdAt: new Date().toISOString()
@@ -22,11 +22,11 @@ export class MockAuthStrategy implements AuthStrategy {
     throw new Error('Credenciales inválidas');
   }
   
-  async register(name: string, email: string, password: string): Promise<AuthResult> {
+  async register(_name: string, username: string, password: string): Promise<AuthResult> {
     const user: User = {
       id: Date.now().toString(),
-      email,
-      name,
+      username,
+      name: _name,
       city: 'TransMilenio Bogotá',
       createdAt: new Date().toISOString()
     };

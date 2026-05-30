@@ -37,18 +37,18 @@ const SidebarPresenter = ({ currentPath, navItems, isCollapsed, onToggle }: Side
     <aside 
       className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out shadow-xl fixed left-0 top-0 z-30 ${
         isCollapsed ? 'w-20' : 'w-64'
-      } bg-[#002E5E] dark:bg-[#1a3a5c]`}
+      } bg-[#0f172a] dark:bg-[#1a3a5c]`}
     >
-      <div className="p-4 border-b border-[#015EB0]/30 dark:border-[#015EB0]/20 flex items-center justify-between">
+      <div className="p-4 border-b border-[#3EA32A]/20 dark:border-[#015EB0]/20 flex items-center justify-between">
         {!isCollapsed && (
           <div className="animate-fade-in">
-            <h1 className="text-xl font-bold text-white dark:text-gray-100">DSS</h1>
+            <h1 className="text-xl font-bold text-white dark:text-gray-100">TransMind DSS</h1>
             <p className="text-sm text-gray-200 dark:text-gray-300 mt-1">TransMilenio Bogotá</p>
           </div>
         )}
         <button
           onClick={onToggle}
-          className="p-2 rounded-lg hover:bg-[#015EB0]/30 dark:hover:bg-[#015EB0]/20 transition-colors text-white dark:text-gray-200"
+          className="p-2 rounded-lg hover:bg-[#3EA32A]/30 dark:hover:bg-[#015EB0]/20 transition-colors text-white dark:text-gray-200"
           title={isCollapsed ? 'Expandir' : 'Colapsar'}
         >
           {isCollapsed ? <ChevronRight className="w-5 h-5" /> : <ChevronLeft className="w-5 h-5" />}
@@ -66,7 +66,7 @@ const SidebarPresenter = ({ currentPath, navItems, isCollapsed, onToggle }: Side
                   className={`flex items-center gap-3 px-4 py-3 rounded-md transition-all duration-200 ${
                     isActive 
                       ? 'bg-[#3EA32A] text-white shadow-lg transform scale-105' 
-                      : 'text-gray-200 dark:text-gray-300 hover:bg-[#015EB0]/20 dark:hover:bg-[#015EB0]/30'
+                      : 'text-gray-200 dark:text-gray-300 hover:bg-[#3EA32A]/20 dark:hover:bg-[#015EB0]/30'
                   }`}
                   title={isCollapsed ? item.label : ''}
                 >
@@ -80,7 +80,7 @@ const SidebarPresenter = ({ currentPath, navItems, isCollapsed, onToggle }: Side
       </nav>
       
       {!isCollapsed && (
-        <div className="p-4 border-t border-[#015EB0]/30 dark:border-[#015EB0]/20 animate-fade-in">
+        <div className="p-4 border-t border-[#3EA32A]/20 dark:border-[#015EB0]/20 animate-fade-in">
           <p className="text-xs text-gray-300 dark:text-gray-400 text-center">
             Sistema de Soporte a Decisiones
           </p>

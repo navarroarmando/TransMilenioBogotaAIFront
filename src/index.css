@@ -6,13 +6,77 @@
   }
   
   body {
-    background-color: #FFFFFF;
-    color: #1A1A2E;
+    background-color: var(--background);
+    color: var(--on-background);
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
   .dark body {
-    background-color: #0A0E27;
-    color: #FFFFFF;
+    background-color: var(--dark-background);
+    color: var(--dark-on-background);
   }
+}
+
+:root {
+  /* Light theme colors */
+  --primary: #e31e24;
+  --on-primary: #ffffff;
+  --primary-container: #ffdad6;
+  --on-primary-container: #410002;
+  --secondary: #0f172a;
+  --on-secondary: #ffffff;
+  --secondary-container: #dae2fd;
+  --on-secondary-container: #131b2e;
+  --tertiary: #475569;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #d5e3fc;
+  --on-tertiary-container: #0d1c2e;
+  --error: #ba1a1a;
+  --on-error: #ffffff;
+  --error-container: #ffdad6;
+  --on-error-container: #93000a;
+  --background: #f8fafc;
+  --on-background: #191c1e;
+  --surface: #f7f9fb;
+  --on-surface: #191c1e;
+  --surface-variant: #e0e3e5;
+  --on-surface-variant: #5d3f3c;
+  --outline: #926f6b;
+  --outline-variant: #e7bdb8;
+  --inverse-surface: #2d3133;
+  --inverse-on-surface: #eff1f3;
+  --inverse-primary: #ffb4ab;
+  --surface-tint: #c00014;
+}
+
+.dark {
+  /* Dark theme colors (current existing colors) */
+  --primary: #015EB0;
+  --on-primary: #ffffff;
+  --primary-container: #002E5E;
+  --on-primary-container: #ffffff;
+  --secondary: #3EA32A;
+  --on-secondary: #ffffff;
+  --secondary-container: #1a1a2e;
+  --on-secondary-container: #ffffff;
+  --tertiary: #475569;
+  --on-tertiary: #ffffff;
+  --tertiary-container: #1a1a2e;
+  --on-tertiary-container: #ffffff;
+  --error: #ef5350;
+  --on-error: #ffffff;
+  --error-container: #1a1a2e;
+  --on-error-container: #ef5350;
+  --dark-background: #0A0E27;
+  --dark-on-background: #FFFFFF;
+  --surface: #1a1a2e;
+  --on-surface: #FFFFFF;
+  --surface-variant: #121212;
+  --on-surface-variant: #e0e0e0;
+  --outline: #015EB0;
+  --outline-variant: #015EB0;
+  --inverse-surface: #FFFFFF;
+  --inverse-on-surface: #0A0E27;
+  --inverse-primary: #3EA32A;
+  --surface-tint: #015EB0;
 }

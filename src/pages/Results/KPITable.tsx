@@ -22,43 +22,43 @@ const KPITablePresenter = ({ before, after, variation }: KPITableProps) => {
   ];
 
   return (
-    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#015EB0]/10 dark:border-[#015EB0]/20 animate-slide-in">
-      <h3 className="text-xl font-bold text-[#002E5E] dark:text-white mb-6 flex items-center gap-2">
+    <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#3EA32A]/20 dark:border-[#015EB0]/20 animate-slide-in">
+      <h3 className="text-xl font-bold text-[#191c1e] dark:text-white mb-6 flex items-center gap-2">
         <span className="w-2 h-8 bg-[#3EA32A] rounded-full"></span>
         Comparación de KPIs
       </h3>
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-[#015EB0]/10 dark:divide-[#015EB0]/20">
-          <thead className="bg-[#002E5E]/5 dark:bg-[#015EB0]/10">
+        <table className="min-w-full divide-y divide-[#3EA32A]/20 dark:divide-[#015EB0]/20">
+          <thead className="bg-[#3EA32A]/5 dark:bg-[#015EB0]/10">
             <tr>
-              <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                 KPI
               </th>
-              <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                 Antes
               </th>
-              <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                 Después
               </th>
-              <th className="px-6 py-4 text-left text-xs font-bold text-[#002E5E] dark:text-white uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                 Variación
               </th>
             </tr>
           </thead>
-          <tbody className="bg-white dark:bg-[#1a1a2e] divide-y divide-[#015EB0]/10 dark:divide-[#015EB0]/20">
+          <tbody className="bg-white dark:bg-[#1a1a2e] divide-y divide-[#3EA32A]/20 dark:divide-[#015EB0]/20">
             {kpiData.map((kpi, index) => (
-              <tr key={index} className="hover:bg-[#015EB0]/5 dark:hover:bg-[#015EB0]/10 transition-colors">
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#002E5E] dark:text-white">
+              <tr key={index} className="hover:bg-[#3EA32A]/5 dark:hover:bg-[#015EB0]/10 transition-colors">
+                <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#191c1e] dark:text-white">
                   {kpi.label}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
                   {kpi.before}
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
                   {kpi.after}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm">
-                  <span className={`px-3 py-1 rounded-full font-bold ${kpi.variation > 0 ? 'bg-[#3EA32A]/10 dark:bg-[#3EA32A]/20 text-[#3EA32A] dark:text-[#3EA32A] border border-[#3EA32A]/30' : 'bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-200 border border-red-300 dark:border-red-600'}`}>
+                  <span className={`px-3 py-1 rounded-full font-bold ${kpi.variation > 0 ? 'bg-[#3EA32A]/10 dark:bg-[#3EA32A]/20 text-[#3EA32A] dark:text-[#3EA32A] border border-[#3EA32A]/30' : 'bg-[#d1fae5] dark:bg-green-900/20 text-[#065f46] dark:text-green-200 border border-[#3EA32A] dark:border-green-600'}`}>
                     {kpi.variation > 0 ? '+' : ''}{kpi.variation.toFixed(1)}%
                   </span>
                 </td>

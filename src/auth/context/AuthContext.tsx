@@ -1,12 +1,12 @@
 import { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 import type { ReactNode } from 'react';
 import type { User, Credentials, AuthState } from '../types/auth.types';
-import { MockAuthStrategy } from '../services/MockAuthService';
+import { ApiAuthStrategy } from '../services/ApiAuthService';
 
 interface AuthContextValue extends AuthState {
   login: (credentials: Credentials) => Promise<void>;
   logout: () => Promise<void>;
-  register: (name: string, email: string, password: string) => Promise<void>;
+  register: (name: string, username: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -18,7 +18,7 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const authStrategy = useMemo(() => new MockAuthStrategy(), []);
+  const authStrategy = useMemo(() => new ApiAuthStrategy(), []);
   
   useEffect(() => {
     const loadSession = async () => {
@@ -41,12 +41,20 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   
   const login = useCallback(async (credentials: Credentials) => {
     const result = await authStrategy.login(credentials);
-    setUser(result.user || null);
+    if (result.success && result.user) {
+      setUser(result.user);
+    } else {
+      throw new Error(result.error || 'Error al iniciar sesión');
+    }
   }, [authStrategy]);
   
-  const register = useCallback(async (name: string, email: string, password: string) => {
-    const result = await authStrategy.register(name, email, password);
-    setUser(result.user || null);
+  const register = useCallback(async (name: string, username: string, password: string) => {
+    const result = await authStrategy.register(name, username, password);
+    if (result.success && result.user) {
+      setUser(result.user);
+    } else {
+      throw new Error(result.error || 'Error al registrar usuario');
+    }
   }, [authStrategy]);
   
   const logout = useCallback(async () => {
