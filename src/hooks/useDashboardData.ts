@@ -1,22 +1,20 @@
 import { useState, useEffect } from 'react';
-import type { OptimizationResults } from '../services/types/optimization.types';
-import { MockOptimizationRepository } from '../services/mock/optimizationRepositoryMock';
+import type { DashboardResponse } from '../services/types/dashboard.types';
+import { dashboardApi } from '../services/api/dashboardApi';
 
 export const useDashboardData = () => {
-  const [data, setData] = useState<OptimizationResults | null>(null);
+  const [data, setData] = useState<DashboardResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-  const repository = new MockOptimizationRepository();
   
   useEffect(() => {
     const loadData = async () => {
       try {
         setIsLoading(true);
-        const results = await repository.getResults('latest');
-        setData(results);
+        const dashboardData = await dashboardApi.getDashboardData();
+        setData(dashboardData);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Error loading data');
+        setError(err instanceof Error ? err.message : 'Error loading dashboard data');
       } finally {
         setIsLoading(false);
       }

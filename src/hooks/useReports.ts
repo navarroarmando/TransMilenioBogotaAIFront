@@ -1,30 +1,63 @@
 import { useState, useCallback } from 'react';
-import type { OptimizationResults } from '../services/types/optimization.types';
+import type { ReportRequest, ReportResponse } from '../services/types/reports.types';
+import { reportsApi } from '../services/api/reportsApi';
 
 export const useReports = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   
-  const generatePDF = useCallback(async (results: OptimizationResults) => {
+  const generatePDF = useCallback(async (executionId: string, options?: ReportRequest['options']) => {
     setIsGenerating(true);
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        console.log('Generando PDF con resultados:', results);
-        setIsGenerating(false);
-        resolve();
-      }, 2000);
-    });
+    try {
+      const response: ReportResponse = await reportsApi.generatePdfReport({
+        execution_id: executionId,
+        options
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsGenerating(false);
+    }
   }, []);
   
-  const generateExcel = useCallback(async (results: OptimizationResults) => {
+  const generateExcel = useCallback(async (executionId: string, options?: ReportRequest['options']) => {
     setIsGenerating(true);
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        console.log('Generando Excel con resultados:', results);
-        setIsGenerating(false);
-        resolve();
-      }, 1500);
-    });
+    try {
+      const response: ReportResponse = await reportsApi.generateExcelReport({
+        execution_id: executionId,
+        options
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsGenerating(false);
+    }
+  }, []);
+
+  const generateHTML = useCallback(async (executionId: string, options?: ReportRequest['options']) => {
+    setIsGenerating(true);
+    try {
+      const response: ReportResponse = await reportsApi.generateHtmlReport({
+        execution_id: executionId,
+        options
+      });
+      return response;
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsGenerating(false);
+    }
+  }, []);
+
+  const downloadReport = useCallback(async (reportId: string) => {
+    try {
+      const response = await reportsApi.downloadReport(reportId);
+      return response;
+    } catch (error) {
+      throw error;
+    }
   }, []);
   
-  return { isGenerating, generatePDF, generateExcel };
+  return { isGenerating, generatePDF, generateExcel, generateHTML, downloadReport };
 };

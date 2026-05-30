@@ -22,12 +22,16 @@ const OptimizationEngineContainer = () => {
     updateParams({ ...params, operational });
   };
 
-  const handleGAChange = (ga: typeof params.ga) => {
-    updateParams({ ...params, ga });
+  const handleGAChange = (parameters: typeof params.parameters) => {
+    updateParams({ ...params, parameters });
   };
 
   const handleFitnessChange = (fitness_weights: typeof params.fitness_weights) => {
     updateParams({ ...params, fitness_weights });
+  };
+
+  const handleModeChange = (mode: string) => {
+    updateParams({ ...params, mode });
   };
 
   const totalFitness = Object.values(params.fitness_weights).reduce((sum, val) => sum + val, 0);
@@ -40,13 +44,41 @@ const OptimizationEngineContainer = () => {
         <p className="text-gray-200 dark:text-gray-300">Configura y ejecuta el algoritmo genético para optimizar rutas</p>
       </div>
       
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#3EA32A]/20 dark:border-[#015EB0]/20">
+        <h3 className="text-xl font-bold text-[#191c1e] dark:text-white mb-4">Modo de Optimización</h3>
+        <div className="flex gap-4">
+          <button
+            onClick={() => handleModeChange('individual')}
+            disabled={isRunning}
+            className={`flex-1 px-4 py-3 rounded-lg font-semibold transition-all ${
+              params.mode === 'individual'
+                ? 'bg-gradient-to-r from-[#3EA32A] to-[#2E7A1F] text-white shadow-lg'
+                : 'bg-gray-100 dark:bg-[#2a2a4a] text-[#191c1e] dark:text-white hover:bg-gray-200 dark:hover:bg-[#3a3a5a]'
+            }`}
+          >
+            Individual
+          </button>
+          <button
+            onClick={() => handleModeChange('map')}
+            disabled={isRunning}
+            className={`flex-1 px-4 py-3 rounded-lg font-semibold transition-all ${
+              params.mode === 'map'
+                ? 'bg-gradient-to-r from-[#3EA32A] to-[#2E7A1F] text-white shadow-lg'
+                : 'bg-gray-100 dark:bg-[#2a2a4a] text-[#191c1e] dark:text-white hover:bg-gray-200 dark:hover:bg-[#3a3a5a]'
+            }`}
+          >
+            Mapa
+          </button>
+        </div>
+      </div>
+      
       <OperationalParams 
         params={params.operational} 
         onChange={handleOperationalChange}
         disabled={isRunning}
       />
       <GAParams 
-        params={params.ga} 
+        params={params.parameters} 
         onChange={handleGAChange}
         disabled={isRunning}
       />

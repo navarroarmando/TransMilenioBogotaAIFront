@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
 import type { OptimizationResults } from '../services/types/optimization.types';
-import { MockOptimizationRepository } from '../services/mock/optimizationRepositoryMock';
+import { resultsApi } from '../services/api/resultsApi';
 
-export const useResults = () => {
+export const useResults = (executionId?: string) => {
   const [data, setData] = useState<OptimizationResults | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-  const repository = new MockOptimizationRepository();
-  
   useEffect(() => {
-    const loadData = async () => {
+    const loadResults = async () => {
+      if (!executionId) {
+        setIsLoading(false);
+        return;
+      }
+
       try {
         setIsLoading(true);
-        const results = await repository.getResults('latest');
+        const results = await resultsApi.getResults(executionId);
         setData(results);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error loading results');
@@ -22,8 +25,8 @@ export const useResults = () => {
       }
     };
     
-    loadData();
-  }, []);
+    loadResults();
+  }, [executionId]);
   
   return { data, isLoading, error };
 };

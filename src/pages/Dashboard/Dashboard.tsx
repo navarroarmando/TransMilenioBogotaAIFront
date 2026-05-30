@@ -1,6 +1,7 @@
 import { useDashboardData } from '../../hooks/useDashboardData';
 import DashboardKPIs from './DashboardKPIs';
 import DashboardMap from './DashboardMap';
+import SystemStatus from './SystemStatus';
 import AlertsPanel from './AlertsPanel';
 import QuickActions from './QuickActions';
 import { Play, Settings, FileText } from 'lucide-react';
@@ -80,7 +81,8 @@ const DashboardContainer = () => {
       </div>
       
       <DashboardKPIs kpis={data.kpis} />
-      <DashboardMap routes={data.routes} />
+      <DashboardMap executions={data.recent_executions} />
+      <SystemStatus status={data.system_status} />
       <AlertsPanel alerts={mockAlerts} />
       <QuickActions actions={quickActions} />
     </div>

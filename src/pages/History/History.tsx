@@ -105,10 +105,16 @@ const HistoryContainer = () => {
                     Fecha
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
-                    Duración
+                    Modo
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                     Estado
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
+                    Duración
+                  </th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
+                    Fitness
                   </th>
                   <th className="px-6 py-4 text-left text-xs font-bold text-[#191c1e] dark:text-white uppercase tracking-wider">
                     Acciones
@@ -117,15 +123,17 @@ const HistoryContainer = () => {
               </thead>
               <tbody className="bg-white dark:bg-[#1a1a2e] divide-y divide-[#3EA32A]/20 dark:divide-[#015EB0]/20">
                 {history.map((execution) => (
-                  <tr key={execution.id} className="hover:bg-[#3EA32A]/5 dark:hover:bg-[#015EB0]/10 transition-colors">
+                  <tr key={execution.execution_id} className="hover:bg-[#3EA32A]/5 dark:hover:bg-[#015EB0]/10 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-[#191c1e] dark:text-white">
-                      {execution.id}
+                      {execution.execution_id}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
                       {new Date(execution.timestamp).toLocaleString('es-CO')}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
-                      {execution.duration_seconds}s
+                      <span className="px-2 py-1 bg-[#3EA32A]/10 dark:bg-[#3EA32A]/10 text-[#3EA32A] dark:text-[#3EA32A] rounded text-xs font-semibold">
+                        {execution.mode}
+                      </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-3 py-1 inline-flex text-xs leading-5 font-bold rounded-full ${getStatusColor(execution.status)}`}>
@@ -135,6 +143,12 @@ const HistoryContainer = () => {
                         </div>
                       </span>
                     </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
+                      {execution.duration_seconds !== undefined ? `${execution.duration_seconds.toFixed(0)}s` : 'N/A'}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
+                      {execution.best_fitness !== undefined ? execution.best_fitness.toFixed(4) : 'N/A'}
+                    </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <div className="flex items-center gap-2">
                         <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0f172a] to-[#475569] text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold">
@@ -142,7 +156,7 @@ const HistoryContainer = () => {
                           Ver Detalles
                         </button>
                         <button 
-                          onClick={() => handleGenerateReport(execution.id)}
+                          onClick={() => handleGenerateReport(execution.execution_id)}
                           className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#3EA32A] to-[#2E7A1F] text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold"
                         >
                           <FileText className="w-4 h-4" />

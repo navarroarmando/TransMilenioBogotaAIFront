@@ -1,7 +1,7 @@
-import type { KPIs } from '../../services/types/optimization.types';
+import type { DashboardKPIs } from '../../services/types/dashboard.types';
 
 interface DashboardKPIsProps {
-  kpis: KPIs;
+  kpis: DashboardKPIs;
 }
 
 interface KPICardProps {
@@ -40,28 +40,34 @@ const DashboardKPIsPresenter = ({ kpis }: DashboardKPIsProps) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
       <KPICard 
-        title="Demanda Atendida" 
-        value={kpis.total_demand_served.toLocaleString()} 
-        trend={47.1}
-        trendLabel="mejora"
+        title="Total Ejecuciones" 
+        value={kpis.total_executions.toLocaleString()} 
+        trend={12.5}
+        trendLabel="vs mes anterior"
       />
       <KPICard 
-        title="Tiempo de Viaje Promedio" 
-        value={`${kpis.avg_travel_time_min} min`} 
-        trend={-26.9}
-        trendLabel="reducción"
+        title="Ejecuciones Completadas" 
+        value={kpis.completed_executions.toLocaleString()} 
+        trend={8.3}
+        trendLabel="vs mes anterior"
       />
       <KPICard 
-        title="Cobertura" 
-        value={`${kpis.coverage_pct}%`} 
-        trend={23.6}
-        trendLabel="mejora"
+        title="Ejecuciones Fallidas" 
+        value={kpis.failed_executions.toLocaleString()} 
+        trend={-15.2}
+        trendLabel="vs mes anterior"
       />
       <KPICard 
-        title="Utilización de Flota" 
-        value={`${(kpis.fleet_utilization * 100).toFixed(0)}%`} 
-        trend={60.0}
-        trendLabel="mejora"
+        title="Duración Promedio" 
+        value={`${kpis.avg_duration_seconds.toFixed(0)}s`} 
+        trend={-5.7}
+        trendLabel="vs mes anterior"
+      />
+      <KPICard 
+        title="Mejor Fitness Histórico" 
+        value={kpis.best_fitness_all_time.toFixed(4)} 
+        trend={2.1}
+        trendLabel="vs mes anterior"
       />
     </div>
   );

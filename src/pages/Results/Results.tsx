@@ -1,7 +1,6 @@
 import { useResults } from '../../hooks/useResults';
-import ComparisonMap from './ComparisonMap';
 import KPITable from './KPITable';
-import RoutesList from './RoutesList';
+import ResultsBySlot from './ResultsBySlot';
 
 const ResultsContainer = () => {
   const { data, isLoading, error } = useResults();
@@ -41,13 +40,26 @@ const ResultsContainer = () => {
         <p className="text-gray-200 dark:text-gray-300">Análisis detallado de las mejoras en el sistema de transporte</p>
       </div>
       
-      <ComparisonMap routes={data.routes} />
-      <KPITable 
-        before={data.comparison.before}
-        after={data.comparison.after}
-        variation={data.comparison.variation}
-      />
-      <RoutesList routes={data.routes} />
+      <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#3EA32A]/20 dark:border-[#015EB0]/20">
+        <h3 className="text-xl font-bold text-[#191c1e] dark:text-white mb-4">Información de Ejecución</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-gray-50 dark:bg-[#2a2a4a] rounded-xl p-4">
+            <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">ID de Ejecución</p>
+            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.execution_id}</p>
+          </div>
+          <div className="bg-gray-50 dark:bg-[#2a2a4a] rounded-xl p-4">
+            <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">Modo</p>
+            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.mode}</p>
+          </div>
+          <div className="bg-gray-50 dark:bg-[#2a2a4a] rounded-xl p-4">
+            <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">Duración</p>
+            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.duration_seconds.toFixed(0)}s</p>
+          </div>
+        </div>
+      </div>
+      
+      <KPITable kpis={data.kpis} />
+      <ResultsBySlot resultsBySlot={data.results_by_slot} />
     </div>
   );
 };
