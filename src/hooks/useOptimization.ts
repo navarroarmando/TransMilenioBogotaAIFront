@@ -1,14 +1,15 @@
 import { useState, useCallback } from 'react';
 import type { OptimizationParams, OptimizationResults, OptimizationStatus } from '../services/types/optimization.types';
 import { optimizationApi } from '../services/api/optimizationApi';
-import { mockOperationalParams, mockGAParams, mockFitnessWeights } from '../services/mock/optimizationMock';
+import { mockOperationalParams, mockGAParams, mockFitnessWeights, mockVisualizationConfig } from '../services/mock/optimizationMock';
 
 export const useOptimization = () => {
   const [params, setParams] = useState<OptimizationParams>({
     mode: 'individual',
     parameters: mockGAParams,
     fitness_weights: mockFitnessWeights,
-    operational: mockOperationalParams
+    operational: mockOperationalParams,
+    visualization_config: mockVisualizationConfig
   });
   const [isRunning, setIsRunning] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);
@@ -40,7 +41,12 @@ export const useOptimization = () => {
         config: params
       });
       
+      console.log('useOptimization - Response:', response);
+      console.log('useOptimization - executionId:', response.execution_id);
+      
       setExecutionId(response.execution_id);
+      localStorage.setItem('last_execution_id', response.execution_id);
+      console.log('useOptimization - Saved to localStorage:', localStorage.getItem('last_execution_id'));
       addLog(`Optimización iniciada con ID: ${response.execution_id}`);
       
       // Start polling for status

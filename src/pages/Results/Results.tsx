@@ -1,9 +1,16 @@
 import { useResults } from '../../hooks/useResults';
+import { useLocation } from 'react-router-dom';
 import KPITable from './KPITable';
 import ResultsBySlot from './ResultsBySlot';
 
 const ResultsContainer = () => {
-  const { data, isLoading, error } = useResults();
+  const location = useLocation();
+  const executionId = location.state?.selectedExecutionId || localStorage.getItem('last_execution_id');
+  console.log('Results - executionId from location/state:', location.state?.selectedExecutionId);
+  console.log('Results - executionId from localStorage:', localStorage.getItem('last_execution_id'));
+  console.log('Results - final executionId:', executionId);
+  const { data, isLoading, error } = useResults(executionId);
+  console.log('Results - data:', data, 'isLoading:', isLoading, 'error:', error);
 
   if (isLoading) {
     return (

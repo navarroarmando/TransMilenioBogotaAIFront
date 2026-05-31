@@ -49,7 +49,7 @@ const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalP
           />
         </div>
         <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Rutas por Slot</label>
+          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Rutas por Franja Horaria</label>
           <input
             type="number"
             value={params.num_routes_per_slot}
@@ -67,7 +67,7 @@ const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalP
               disabled={disabled}
               className="w-5 h-5 accent-[#e31e24] rounded focus:ring-2 focus:ring-[#e31e24] disabled:opacity-50"
             />
-            <span className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Habilitar Slots de Tiempo</span>
+            <span className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Habilitar Franjas Horarias de Tiempo</span>
           </label>
         </div>
       </div>

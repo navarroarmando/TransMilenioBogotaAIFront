@@ -7,6 +7,10 @@ const HistoryContainer = () => {
   const { history, isLoading, error } = useHistory();
   const navigate = useNavigate();
 
+  const handleViewDetails = (executionId: string) => {
+    navigate('/results', { state: { selectedExecutionId: executionId } });
+  };
+
   const handleGenerateReport = (executionId: string) => {
     navigate('/reports', { state: { selectedExecutionId: executionId } });
   };
@@ -144,14 +148,17 @@ const HistoryContainer = () => {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
-                      {execution.duration_seconds !== undefined ? `${execution.duration_seconds.toFixed(0)}s` : 'N/A'}
+                      {execution.duration_seconds != null ? `${execution.duration_seconds.toFixed(0)}s` : 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-[#5d3f3c] dark:text-gray-400">
-                      {execution.best_fitness !== undefined ? execution.best_fitness.toFixed(4) : 'N/A'}
+                      {execution.best_fitness != null ? execution.best_fitness.toFixed(4) : 'N/A'}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <div className="flex items-center gap-2">
-                        <button className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0f172a] to-[#475569] text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold">
+                        <button 
+                          onClick={() => handleViewDetails(execution.execution_id)}
+                          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#0f172a] to-[#475569] text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold"
+                        >
                           <Eye className="w-4 h-4" />
                           Ver Detalles
                         </button>
