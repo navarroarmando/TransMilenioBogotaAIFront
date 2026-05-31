@@ -7,7 +7,7 @@ interface OperationalParamsProps {
 }
 
 const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalParamsProps) => {
-  const handleChange = (field: keyof OperationalParams, value: number) => {
+  const handleChange = (field: keyof OperationalParams, value: number | boolean) => {
     onChange({ ...params, [field]: value });
   };
 
@@ -39,44 +39,36 @@ const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalP
           />
         </div>
         <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Capacidad Bus</label>
+          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Intervalo Slot Tiempo (min)</label>
           <input
             type="number"
-            value={params.bus_capacity}
-            onChange={(e) => handleChange('bus_capacity', parseInt(e.target.value))}
+            value={params.time_slot_interval}
+            onChange={(e) => handleChange('time_slot_interval', parseInt(e.target.value))}
             disabled={disabled}
             className="w-full px-4 py-3 border-2 border-[#926f6b] dark:border-[#015EB0]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#e31e24] focus:border-[#e31e24] disabled:opacity-50 bg-[#f7f9fb] dark:bg-[#121212] text-[#191c1e] dark:text-white font-semibold transition-all duration-300 hover:border-[#e31e24]/40 dark:hover:border-[#015EB0]/50"
           />
         </div>
         <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Distancia Máxima Recorrida (km)</label>
+          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Rutas por Slot</label>
           <input
             type="number"
-            value={params.max_travel_time_min}
-            onChange={(e) => handleChange('max_travel_time_min', parseInt(e.target.value))}
+            value={params.num_routes_per_slot}
+            onChange={(e) => handleChange('num_routes_per_slot', parseInt(e.target.value))}
             disabled={disabled}
             className="w-full px-4 py-3 border-2 border-[#926f6b] dark:border-[#015EB0]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#e31e24] focus:border-[#e31e24] disabled:opacity-50 bg-[#f7f9fb] dark:bg-[#121212] text-[#191c1e] dark:text-white font-semibold transition-all duration-300 hover:border-[#e31e24]/40 dark:hover:border-[#015EB0]/50"
           />
         </div>
-        <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Franjas Horarias</label>
-          <input
-            type="number"
-            value={params.time_windows}
-            onChange={(e) => handleChange('time_windows', parseInt(e.target.value))}
-            disabled={disabled}
-            className="w-full px-4 py-3 border-2 border-[#926f6b] dark:border-[#015EB0]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#e31e24] focus:border-[#e31e24] disabled:opacity-50 bg-[#f7f9fb] dark:bg-[#121212] text-[#191c1e] dark:text-white font-semibold transition-all duration-300 hover:border-[#e31e24]/40 dark:hover:border-[#015EB0]/50"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Cobertura Objetivo (%)</label>
-          <input
-            type="number"
-            value={params.target_coverage_pct}
-            onChange={(e) => handleChange('target_coverage_pct', parseInt(e.target.value))}
-            disabled={disabled}
-            className="w-full px-4 py-3 border-2 border-[#926f6b] dark:border-[#015EB0]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#e31e24] focus:border-[#e31e24] disabled:opacity-50 bg-[#f7f9fb] dark:bg-[#121212] text-[#191c1e] dark:text-white font-semibold transition-all duration-300 hover:border-[#e31e24]/40 dark:hover:border-[#015EB0]/50"
-          />
+        <div className="flex items-center bg-[#f7f9fb] dark:bg-[#121212] border-2 border-[#926f6b] dark:border-[#015EB0]/30 rounded-xl px-4 py-3 hover:border-[#e31e24]/40 dark:hover:border-[#015EB0]/50 transition-all duration-300">
+          <label className="flex items-center gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={params.enable_time_slots}
+              onChange={(e) => handleChange('enable_time_slots', e.target.checked)}
+              disabled={disabled}
+              className="w-5 h-5 accent-[#e31e24] rounded focus:ring-2 focus:ring-[#e31e24] disabled:opacity-50"
+            />
+            <span className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Habilitar Slots de Tiempo</span>
+          </label>
         </div>
       </div>
     </div>

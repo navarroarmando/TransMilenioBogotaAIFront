@@ -2,6 +2,7 @@ import type {
   OperationalParams,
   GAParams,
   FitnessWeights,
+  VisualizationConfig,
   Stop,
   Route,
   KPIs,
@@ -12,18 +13,9 @@ import type {
 export const mockOperationalParams: OperationalParams = {
   service_hours_start: 4,
   service_hours_end: 20,
-  morning_peak_start: 6,
-  morning_peak_end: 9,
-  afternoon_peak_start: 17,
-  afternoon_peak_end: 20,
-  bus_capacity: 80,
-  max_travel_time_min: 90,
-  min_stops: 2,
-  max_stops: 50,
-  min_distance_km: 2,
-  max_distance_km: 50,
-  stop_radius_m: 500,
-  target_coverage_pct: 95
+  time_slot_interval: 30,
+  num_routes_per_slot: 10,
+  enable_time_slots: true
 };
 
 export const mockGAParams: GAParams = {
@@ -36,7 +28,19 @@ export const mockGAParams: GAParams = {
   min_route_length: 15,
   max_route_length: 60,
   distance_bias_km: 30,
-  enable_dijkstra: true
+  enable_dijkstra_decoding: true,
+  max_travel_time_min: 90,
+  bus_capacity: 80,
+  checkpoint_interval: 10,
+  log_interval: 5,
+  demand_sample_ratio: 1.0,
+  demand_filter_threshold: 1.0,
+  enable_numpy_vectorization: true,
+  enable_spatial_index: true,
+  enable_performance_timer: false,
+  enable_connectivity_validation: true,
+  connectivity_penalty: 1000,
+  enable_population_fitness_history: false
 };
 
 export const mockFitnessWeights: FitnessWeights = {
@@ -46,6 +50,11 @@ export const mockFitnessWeights: FitnessWeights = {
   economy: 0.10,
   speed: 0.05,
   transfers: 0.05
+};
+
+export const mockVisualizationConfig: VisualizationConfig = {
+  visualization_graph: 'integrated_osm',
+  enable_visualization: true
 };
 
 export const mockStops: Stop[] = [
@@ -112,63 +121,46 @@ export const mockKPIsAfter: KPIs = {
 export const mockOptimizationResults: OptimizationResults = {
   execution_id: 'EXEC-2024-001',
   timestamp: '2024-01-15T10:30:00Z',
-  params: {
-    operational: mockOperationalParams,
-    ga: mockGAParams,
-    fitness_weights: mockFitnessWeights
-  },
-  routes: mockRoutes,
+  mode: 'individual',
+  parameters: mockGAParams,
+  fitness_weights: mockFitnessWeights,
+  results_by_slot: {},
   kpis: mockKPIsAfter,
-  comparison: {
-    before: mockKPIsBefore,
-    after: mockKPIsAfter,
-    variation: {
-      total_demand_served: 47.1,
-      avg_travel_time_min: -26.9,
-      total_distance_km: 15.6,
-      coverage_pct: 23.6,
-      equity_score: 26.2,
-      operating_cost: -12.4,
-      fleet_utilization: 60.0
-    }
-  }
+  duration_seconds: 180
 };
 
 export const mockHistory: Execution[] = [
   {
-    id: 'EXEC-2024-001',
+    execution_id: 'EXEC-2024-001',
     timestamp: '2024-01-15T10:30:00Z',
-    params: {
-      operational: mockOperationalParams,
-      ga: mockGAParams,
-      fitness_weights: mockFitnessWeights
-    },
-    results: mockOptimizationResults,
+    mode: 'individual',
     status: 'completed',
-    duration_seconds: 180
+    duration_seconds: 180,
+    parameters: mockGAParams,
+    fitness_weights: mockFitnessWeights,
+    results_by_slot: {},
+    kpis: mockKPIsAfter
   },
   {
-    id: 'EXEC-2024-002',
+    execution_id: 'EXEC-2024-002',
     timestamp: '2024-01-14T14:20:00Z',
-    params: {
-      operational: { ...mockOperationalParams, bus_capacity: 100 },
-      ga: { ...mockGAParams, population_size: 200 },
-      fitness_weights: { ...mockFitnessWeights, efficiency: 0.40 }
-    },
-    results: mockOptimizationResults,
+    mode: 'individual',
     status: 'under_review',
-    duration_seconds: 145
+    duration_seconds: 145,
+    parameters: { ...mockGAParams, population_size: 200 },
+    fitness_weights: { ...mockFitnessWeights, efficiency: 0.40 },
+    results_by_slot: {},
+    kpis: mockKPIsAfter
   },
   {
-    id: 'EXEC-2024-003',
+    execution_id: 'EXEC-2024-003',
     timestamp: '2024-01-13T09:15:00Z',
-    params: {
-      operational: mockOperationalParams,
-      ga: mockGAParams,
-      fitness_weights: mockFitnessWeights
-    },
-    results: mockOptimizationResults,
+    mode: 'individual',
     status: 'applied',
-    duration_seconds: 195
+    duration_seconds: 195,
+    parameters: mockGAParams,
+    fitness_weights: mockFitnessWeights,
+    results_by_slot: {},
+    kpis: mockKPIsAfter
   }
 ];

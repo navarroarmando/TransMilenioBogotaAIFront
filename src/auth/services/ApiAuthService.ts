@@ -1,7 +1,6 @@
 import type { Credentials, AuthResult, User } from '../types/auth.types';
 import type { AuthStrategy } from './AuthService';
-
-const API_BASE_URL = 'http://127.0.0.1:8001';
+import { API_CONFIG, API_ENDPOINTS } from '../../config/api';
 
 export class ApiAuthStrategy implements AuthStrategy {
   async login(credentials: Credentials): Promise<AuthResult> {
@@ -10,7 +9,7 @@ export class ApiAuthStrategy implements AuthStrategy {
       formData.append('username', credentials.username);
       formData.append('password', credentials.password);
 
-      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH_LOGIN}`, {
         method: 'POST',
         body: formData,
       });
@@ -41,7 +40,7 @@ export class ApiAuthStrategy implements AuthStrategy {
 
   async register(_name: string, username: string, password: string): Promise<AuthResult> {
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/register`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH_REGISTER}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +71,7 @@ export class ApiAuthStrategy implements AuthStrategy {
       const refreshToken = localStorage.getItem('auth_refresh_token');
       
       if (refreshToken) {
-        await fetch(`${API_BASE_URL}/auth/logout`, {
+        await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH_LOGOUT}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -100,7 +99,7 @@ export class ApiAuthStrategy implements AuthStrategy {
         throw new Error('No hay refresh token disponible');
       }
 
-      const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH_REFRESH}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -132,7 +131,7 @@ export class ApiAuthStrategy implements AuthStrategy {
 
   private async getCurrentUser(token: string): Promise<User> {
     try {
-      const response = await fetch(`${API_BASE_URL}/auth/me`, {
+      const response = await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH_ME}`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,

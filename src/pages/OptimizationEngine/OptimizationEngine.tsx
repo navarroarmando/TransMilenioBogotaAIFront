@@ -2,6 +2,7 @@ import { useOptimization } from '../../hooks/useOptimization';
 import OperationalParams from './OperationalParams';
 import GAParams from './GAParams';
 import FitnessSliders from './FitnessSliders';
+import VisualizationParams from './VisualizationParams';
 import ExecutionLogs from './ExecutionLogs';
 import ProgressIndicator from './ProgressIndicator';
 import { Play, Square, ArrowRight } from 'lucide-react';
@@ -32,6 +33,10 @@ const OptimizationEngineContainer = () => {
 
   const handleModeChange = (mode: string) => {
     updateParams({ ...params, mode });
+  };
+
+  const handleVisualizationChange = (visualization_config: typeof params.visualization_config) => {
+    updateParams({ ...params, visualization_config });
   };
 
   const totalFitness = Object.values(params.fitness_weights).reduce((sum, val) => sum + val, 0);
@@ -85,6 +90,11 @@ const OptimizationEngineContainer = () => {
       <FitnessSliders 
         weights={params.fitness_weights} 
         onChange={handleFitnessChange}
+        disabled={isRunning}
+      />
+      <VisualizationParams 
+        params={params.visualization_config || { visualization_graph: 'integrated_osm', enable_visualization: true }}
+        onChange={handleVisualizationChange}
         disabled={isRunning}
       />
       

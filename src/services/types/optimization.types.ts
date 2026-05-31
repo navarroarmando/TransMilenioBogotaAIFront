@@ -49,17 +49,17 @@ export interface GAParams {
   max_route_length: number;
   distance_bias_km: number;
   enable_dijkstra_decoding: boolean;
-  max_travel_time_min?: number;
-  bus_capacity?: number;
-  checkpoint_interval?: number;
-  log_interval?: number;
-  demand_sample_ratio?: number;
-  demand_filter_threshold?: number;
-  enable_numpy_vectorization?: boolean;
-  enable_spatial_index?: boolean;
-  enable_performance_timer?: boolean;
-  enable_connectivity_validation?: boolean;
-  connectivity_penalty?: number;
+  max_travel_time_min: number;
+  bus_capacity: number;
+  checkpoint_interval: number;
+  log_interval: number;
+  demand_sample_ratio: number;
+  demand_filter_threshold: number;
+  enable_numpy_vectorization: boolean;
+  enable_spatial_index: boolean;
+  enable_performance_timer: boolean;
+  enable_connectivity_validation: boolean;
+  connectivity_penalty: number;
   enable_population_fitness_history?: boolean;
 }
 
