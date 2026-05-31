@@ -1,4 +1,5 @@
 import type { FitnessWeights } from '../../services/types/optimization.types';
+import InfoTooltip from '../../components/ui/InfoTooltip';
 
 interface FitnessSlidersProps {
   weights: FitnessWeights;
@@ -23,7 +24,7 @@ const FitnessSlidersPresenter = ({ weights, onChange, disabled }: FitnessSliders
       <div className="space-y-6">
         <div>
           <div className="flex justify-between mb-2">
-            <label className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Eficiencia</label>
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Eficiencia<InfoTooltip content="Mide qué tan eficientemente se utiliza la flota de buses para satisfacer la demanda. Valores altos priorizan rutas con alta ocupación." /></label>
             <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.efficiency * 100).toFixed(0)}%</span>
           </div>
           <input
@@ -39,7 +40,7 @@ const FitnessSlidersPresenter = ({ weights, onChange, disabled }: FitnessSliders
         </div>
         <div>
           <div className="flex justify-between mb-2">
-            <label className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Cobertura</label>
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Cobertura<InfoTooltip content="Porcentaje de demanda total que es atendida por el sistema de transporte. Valores altos priorizan máxima cobertura." /></label>
             <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.coverage * 100).toFixed(0)}%</span>
           </div>
           <input
@@ -55,7 +56,7 @@ const FitnessSlidersPresenter = ({ weights, onChange, disabled }: FitnessSliders
         </div>
         <div>
           <div className="flex justify-between mb-2">
-            <label className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Equidad</label>
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Equidad<InfoTooltip content="Mide qué tan equitativamente se distribuye el servicio entre diferentes estratos socioeconómicos. Valores altos priorizan equidad." /></label>
             <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.equity * 100).toFixed(0)}%</span>
           </div>
           <input
@@ -71,7 +72,7 @@ const FitnessSlidersPresenter = ({ weights, onChange, disabled }: FitnessSliders
         </div>
         <div>
           <div className="flex justify-between mb-2">
-            <label className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Economía</label>
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Economía<InfoTooltip content="Mide el costo operativo del sistema de transporte. Valores altos priorizan minimizar costos operativos." /></label>
             <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.economy * 100).toFixed(0)}%</span>
           </div>
           <input
@@ -87,7 +88,7 @@ const FitnessSlidersPresenter = ({ weights, onChange, disabled }: FitnessSliders
         </div>
         <div>
           <div className="flex justify-between mb-2">
-            <label className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Velocidad</label>
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Velocidad<InfoTooltip content="Mide la velocidad promedio de los buses en las rutas. Valores altos priorizan rutas más rápidas." /></label>
             <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.speed * 100).toFixed(0)}%</span>
           </div>
           <input
@@ -103,7 +104,7 @@ const FitnessSlidersPresenter = ({ weights, onChange, disabled }: FitnessSliders
         </div>
         <div>
           <div className="flex justify-between mb-2">
-            <label className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Transferencias</label>
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Transferencias<InfoTooltip content="Mide el número de transferencias necesarias para completar un viaje. Valores altos penalizan rutas con muchas transferencias." /></label>
             <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.transfers * 100).toFixed(0)}%</span>
           </div>
           <input
@@ -113,6 +114,86 @@ const FitnessSlidersPresenter = ({ weights, onChange, disabled }: FitnessSliders
             step="0.01"
             value={weights.transfers}
             onChange={(e) => handleChange('transfers', parseFloat(e.target.value))}
+            disabled={disabled}
+            className="w-full h-3 bg-[#f7f9fb] dark:bg-[#121212] rounded-full appearance-none cursor-pointer disabled:opacity-50 accent-[#e31e24] dark:accent-[#3EA32A]"
+          />
+        </div>
+        <div>
+          <div className="flex justify-between mb-2">
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Velocidad máxima<InfoTooltip content="Prioriza rutas que aprovechan vías con alta velocidad máxima. Valores altos fomentan uso de vías rápidas." /></label>
+            <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.speed_max * 100).toFixed(0)}%</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={weights.speed_max}
+            onChange={(e) => handleChange('speed_max', parseFloat(e.target.value))}
+            disabled={disabled}
+            className="w-full h-3 bg-[#f7f9fb] dark:bg-[#121212] rounded-full appearance-none cursor-pointer disabled:opacity-50 accent-[#e31e24] dark:accent-[#3EA32A]"
+          />
+        </div>
+        <div>
+          <div className="flex justify-between mb-2">
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Capacidad vial<InfoTooltip content="Mide la capacidad de las vías utilizadas por las rutas. Valores altos priorizan vías con mayor capacidad." /></label>
+            <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.road_capacity * 100).toFixed(0)}%</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={weights.road_capacity}
+            onChange={(e) => handleChange('road_capacity', parseFloat(e.target.value))}
+            disabled={disabled}
+            className="w-full h-3 bg-[#f7f9fb] dark:bg-[#121212] rounded-full appearance-none cursor-pointer disabled:opacity-50 accent-[#e31e24] dark:accent-[#3EA32A]"
+          />
+        </div>
+        <div>
+          <div className="flex justify-between mb-2">
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Tiempo viaje real<InfoTooltip content="Mide el tiempo real de viaje considerando congestión y condiciones reales. Valores altos priorizan viajes más cortos." /></label>
+            <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.travel_time_real * 100).toFixed(0)}%</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={weights.travel_time_real}
+            onChange={(e) => handleChange('travel_time_real', parseFloat(e.target.value))}
+            disabled={disabled}
+            className="w-full h-3 bg-[#f7f9fb] dark:bg-[#121212] rounded-full appearance-none cursor-pointer disabled:opacity-50 accent-[#e31e24] dark:accent-[#3EA32A]"
+          />
+        </div>
+        <div>
+          <div className="flex justify-between mb-2">
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Costo operativo<InfoTooltip content="Costo total de operación del sistema incluyendo combustible, mantenimiento y personal. Valores altos minimizan costos." /></label>
+            <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.operating_cost * 100).toFixed(0)}%</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={weights.operating_cost}
+            onChange={(e) => handleChange('operating_cost', parseFloat(e.target.value))}
+            disabled={disabled}
+            className="w-full h-3 bg-[#f7f9fb] dark:bg-[#121212] rounded-full appearance-none cursor-pointer disabled:opacity-50 accent-[#e31e24] dark:accent-[#3EA32A]"
+          />
+        </div>
+        <div>
+          <div className="flex justify-between mb-2">
+            <label className="text-sm text-[#191c1e] dark:text-white tracking-wide flex items-center">Accesibilidad<InfoTooltip content="Mide qué tan fácil es acceder al sistema de transporte desde diferentes puntos. Valores altos mejoran accesibilidad." /></label>
+            <span className="text-sm font-bold text-[#e31e24] dark:text-[#3EA32A]">{(weights.accessibility * 100).toFixed(0)}%</span>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={weights.accessibility}
+            onChange={(e) => handleChange('accessibility', parseFloat(e.target.value))}
             disabled={disabled}
             className="w-full h-3 bg-[#f7f9fb] dark:bg-[#121212] rounded-full appearance-none cursor-pointer disabled:opacity-50 accent-[#e31e24] dark:accent-[#3EA32A]"
           />

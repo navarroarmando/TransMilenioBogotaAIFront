@@ -3,6 +3,7 @@ import OperationalParams from './OperationalParams';
 import GAParams from './GAParams';
 import FitnessSliders from './FitnessSliders';
 import VisualizationParams from './VisualizationParams';
+import BusinessParams from './BusinessParams';
 import ExecutionLogs from './ExecutionLogs';
 import ProgressIndicator from './ProgressIndicator';
 import { Play, Square, ArrowRight } from 'lucide-react';
@@ -37,6 +38,10 @@ const OptimizationEngineContainer = () => {
 
   const handleVisualizationChange = (visualization_config: typeof params.visualization_config) => {
     updateParams({ ...params, visualization_config });
+  };
+
+  const handleBusinessChange = (business_config: typeof params.business_config) => {
+    updateParams({ ...params, business_config });
   };
 
   const totalFitness = Object.values(params.fitness_weights).reduce((sum, val) => sum + val, 0);
@@ -95,6 +100,11 @@ const OptimizationEngineContainer = () => {
       <VisualizationParams 
         params={params.visualization_config || { visualization_graph: 'integrated_osm', enable_visualization: true }}
         onChange={handleVisualizationChange}
+        disabled={isRunning}
+      />
+      <BusinessParams 
+        params={params.business_config || {}}
+        onChange={handleBusinessChange}
         disabled={isRunning}
       />
       

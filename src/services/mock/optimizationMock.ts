@@ -3,6 +3,10 @@ import type {
   GAParams,
   FitnessWeights,
   VisualizationConfig,
+  BusinessConfig,
+  ParallelConfig,
+  OutputConfig,
+  DistanceBiasRange,
   Stop,
   Route,
   KPIs,
@@ -11,45 +15,119 @@ import type {
 } from '../types/optimization.types';
 
 export const mockOperationalParams: OperationalParams = {
-  service_hours_start: 4,
-  service_hours_end: 20,
-  time_slot_interval: 30,
+  service_hours_start: 6,
+  service_hours_end: 12,
+  time_slot_interval: 120,
   num_routes_per_slot: 10,
-  enable_time_slots: true
+  enable_time_slots: false
 };
 
 export const mockGAParams: GAParams = {
-  population_size: 300,
-  generations: 300,
+  population_size: 10,
+  generations: 10,
   mutation_rate: 0.1,
   crossover_rate: 0.8,
-  elitism_count: 2,
-  tournament_size: 5,
-  min_route_length: 15,
-  max_route_length: 60,
-  distance_bias_km: 30,
-  enable_dijkstra_decoding: true,
-  max_travel_time_min: 90,
+  elitism_count: 1,
+  tournament_size: 3,
+  min_route_length: 5,
+  max_route_length: 100,
+  distance_bias_km: [
+    { min: 15, max: 25, weight: 0.1 },
+    { min: 25, max: 35, weight: 1.0 },
+    { min: 35, max: 50, weight: 2.0 }
+  ],
+  enable_dijkstra_decoding: false,
+  max_travel_time_min: 120,
   bus_capacity: 80,
   checkpoint_interval: 10,
   log_interval: 5,
-  demand_sample_ratio: 1.0,
-  demand_filter_threshold: 1.0,
+  demand_sample_ratio: 0.0,
+  demand_filter_threshold: 0,
   enable_numpy_vectorization: true,
-  enable_spatial_index: true,
+  enable_spatial_index: false,
   enable_performance_timer: false,
   enable_connectivity_validation: true,
-  connectivity_penalty: 1000,
-  enable_population_fitness_history: false
+  connectivity_penalty: 0,
+  enable_population_fitness_history: true
 };
 
 export const mockFitnessWeights: FitnessWeights = {
-  efficiency: 0.35,
-  coverage: 0.25,
-  equity: 0.20,
+  efficiency: 0.15,
   economy: 0.10,
+  equity: 0.05,
+  coverage: 0.10,
+  transfers: 0.05,
   speed: 0.05,
-  transfers: 0.05
+  speed_max: 0.10,
+  road_capacity: 0.10,
+  road_class: 0.10,
+  travel_time_real: 0.10,
+  operating_cost: 0.05,
+  frequency: 0.05,
+  accessibility: 0.05,
+  bus_type_compatibility: 0.05,
+  population_density: 0.05,
+  redundancy: 0.0
+};
+
+export const mockBusinessConfig: BusinessConfig = {
+  morning_peak_start: 6,
+  morning_peak_end: 9,
+  afternoon_peak_start: 17,
+  afternoon_peak_end: 20,
+  peak_hour_speed_factor: 0.6,
+  urban_default_speed: 30.0,
+  highway_default_speed: 60.0,
+  trunk_default_speed: 50.0,
+  residential_default_speed: 20.0,
+  max_speed: 80.0,
+  crs_target: "EPSG:3116",
+  crs_source: "EPSG:4326",
+  min_stops: 2,
+  max_stops: 50,
+  min_routes_per_stop: 1,
+  max_distance: 50.0,
+  min_distance: 2.0,
+  demand_default: 0.0,
+  demand_min_threshold: 1.0,
+  demand_max_threshold: 10000.0,
+  demand_peak_hour_factor: 1.5,
+  stratification_default: 2.5,
+  stratification_buckets: null,
+  stratification_weights: null,
+  max_transfers: 3,
+  transfer_average_time: 10,
+  coverage_stop_radius: 500,
+  coverage_min: 80.0,
+  coverage_target: 95.0
+};
+
+export const mockParallelConfig: ParallelConfig = {
+  enable_monitoring: true,
+  monitoring_interval: 10.0,
+  adjustment_cooldown: 10.0,
+  log_resource_usage: true,
+  max_cpu_percent: 95.0,
+  max_memory_percent: 95.0,
+  max_memory_mb: null,
+  throttle_on_limit: true,
+  throttle_factor: 0.5,
+  num_workers: 16,
+  enable_dynamic_workers: false,
+  min_workers: 2,
+  max_workers: 15,
+  ideal_workers: 8,
+  consecutive_threshold: 2,
+  ideal_cpu_percent: 70.0,
+  ideal_memory_percent: 70.0,
+  prolonged_usage_threshold: 300.0
+};
+
+export const mockOutputConfig: OutputConfig = {
+  save_suggested_routes: true,
+  save_population: false,
+  save_fitness_history: true,
+  output_dir: 'models'
 };
 
 export const mockVisualizationConfig: VisualizationConfig = {

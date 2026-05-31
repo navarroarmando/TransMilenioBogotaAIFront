@@ -29,13 +29,19 @@ export interface BusinessConfig {
   demand_max_threshold?: number;
   demand_peak_hour_factor?: number;
   stratification_default?: number;
-  stratification_buckets?: number[];
-  stratification_weights?: Record<string, number>;
+  stratification_buckets?: number | null;
+  stratification_weights?: number[] | null;
   max_transfers?: number;
   transfer_average_time?: number;
   coverage_stop_radius?: number;
   coverage_min?: number;
   coverage_target?: number;
+}
+
+export interface DistanceBiasRange {
+  min: number;
+  max: number;
+  weight: number;
 }
 
 export interface GAParams {
@@ -47,7 +53,7 @@ export interface GAParams {
   tournament_size: number;
   min_route_length: number;
   max_route_length: number;
-  distance_bias_km: number;
+  distance_bias_km: DistanceBiasRange[];
   enable_dijkstra_decoding: boolean;
   max_travel_time_min: number;
   bus_capacity: number;
@@ -65,11 +71,21 @@ export interface GAParams {
 
 export interface FitnessWeights {
   efficiency: number;
-  coverage: number;
-  equity: number;
   economy: number;
-  speed: number;
+  equity: number;
+  coverage: number;
   transfers: number;
+  speed: number;
+  speed_max: number;
+  road_capacity: number;
+  road_class: number;
+  travel_time_real: number;
+  operating_cost: number;
+  frequency: number;
+  accessibility: number;
+  bus_type_compatibility: number;
+  population_density: number;
+  redundancy: number;
 }
 
 export interface ParallelConfig {
@@ -136,6 +152,7 @@ export interface Route {
 }
 
 export interface KPIs {
+  // KPIs de negocio
   total_demand_served: number;
   avg_travel_time_min: number;
   total_distance_km: number;
@@ -143,17 +160,108 @@ export interface KPIs {
   equity_score: number;
   operating_cost: number;
   fleet_utilization: number;
+  
+  // KPIs del algoritmo genético
+  convergence_generation?: number;
+  initial_fitness?: number;
+  fitness_improvement?: number;
+  fitness_improvement_pct?: number;
+  avg_fitness_population?: number;
+  worst_fitness?: number;
+  population_diversity?: number;
+  num_routes_generated?: number;
+  avg_stops_per_route?: number;
+  time_per_generation?: number;
+  effective_mutation_rate?: number;
+  effective_crossover_rate?: number;
+  last_checkpoint?: string;
+  completed_time_slots?: number;
+  avg_fitness_per_slot?: number;
+  
+  // Métricas avanzadas del AG
+  fitness_history_json?: string;
+  hamming_distance_avg?: number;
+  genetic_entropy?: number;
+  selection_pressure?: number;
+  convergence_rate?: number;
+  generations_to_threshold?: number;
+  hypervolume?: number;
+  spacing_metric?: number;
+}
+
+export interface ExecutionInfo {
+  id: string;
+  execution_id: string;
+  mode: string;
+  status: string;
+  progress: number;
+  current_generation?: number;
+  total_generations?: number;
+  current_time_slot?: number;
+  total_time_slots?: number;
+  best_fitness?: number;
+  started_at?: string;
+  completed_at?: string;
+  estimated_completion?: string;
+  duration_seconds?: number;
+  error_message?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface GAConfig {
+  population_size: number;
+  generations: number;
+  mutation_rate: number;
+  crossover_rate: number;
+  elitism_count: number;
+  tournament_size: number;
+  min_route_length: number;
+  max_route_length: number;
+  distance_bias_km: any;
+  enable_dijkstra_decoding: boolean;
+  max_travel_time_min: number;
+  fitness_weight_efficiency: number;
+  fitness_weight_economy: number;
+  fitness_weight_equity: number;
+  fitness_weight_coverage: number;
+  fitness_weight_transfers: number;
+  fitness_weight_speed: number;
+}
+
+export interface OperationalConfig {
+  bus_capacity: number;
+  service_hours_start: number;
+  service_hours_end: number;
+  time_slot_interval: number;
+  num_routes_per_slot: number;
+  enable_time_slots: boolean;
+}
+
+export interface TechnicalConfig {
+  checkpoint_interval: number;
+  log_interval: number;
+  demand_sample_ratio: number;
+  demand_filter_threshold: number;
+  enable_numpy_vectorization: boolean;
+  enable_spatial_index: boolean;
+  enable_performance_timer: boolean;
+  visualization_graph: string;
+  enable_visualization: boolean;
+  num_workers: number;
+  output_dir: string;
 }
 
 export interface OptimizationResults {
-  execution_id: string;
-  timestamp: string;
-  mode: string;
+  execution: ExecutionInfo;
+  ga_config?: GAConfig;
+  operational_config?: OperationalConfig;
+  technical_config?: TechnicalConfig;
   parameters?: Record<string, any>;
   fitness_weights?: Record<string, any>;
   results_by_slot: Record<string, any>;
   kpis: KPIs;
-  duration_seconds: number;
+  route_stops?: Array<Record<string, any>>;
 }
 
 export interface Execution {

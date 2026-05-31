@@ -52,15 +52,15 @@ const ResultsContainer = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-gray-50 dark:bg-[#2a2a4a] rounded-xl p-4">
             <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">ID de Ejecución</p>
-            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.execution_id}</p>
+            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.execution.execution_id}</p>
           </div>
           <div className="bg-gray-50 dark:bg-[#2a2a4a] rounded-xl p-4">
             <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">Modo</p>
-            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.mode}</p>
+            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.execution.mode}</p>
           </div>
           <div className="bg-gray-50 dark:bg-[#2a2a4a] rounded-xl p-4">
             <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">Duración</p>
-            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.duration_seconds.toFixed(0)}s</p>
+            <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.execution.duration_seconds ? data.execution.duration_seconds.toFixed(0) + 's' : 'N/A'}</p>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import type { OptimizationParams, OptimizationResults, OptimizationStatus } from '../services/types/optimization.types';
 import { optimizationApi } from '../services/api/optimizationApi';
-import { mockOperationalParams, mockGAParams, mockFitnessWeights, mockVisualizationConfig } from '../services/mock/optimizationMock';
+import { mockOperationalParams, mockGAParams, mockFitnessWeights, mockVisualizationConfig, mockBusinessConfig, mockParallelConfig, mockOutputConfig } from '../services/mock/optimizationMock';
 
 export const useOptimization = () => {
   const [params, setParams] = useState<OptimizationParams>({
@@ -9,7 +9,10 @@ export const useOptimization = () => {
     parameters: mockGAParams,
     fitness_weights: mockFitnessWeights,
     operational: mockOperationalParams,
-    visualization_config: mockVisualizationConfig
+    visualization_config: mockVisualizationConfig,
+    business_config: mockBusinessConfig,
+    parallel_config: mockParallelConfig,
+    output_config: mockOutputConfig
   });
   const [isRunning, setIsRunning] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);

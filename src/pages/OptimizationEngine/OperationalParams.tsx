@@ -1,4 +1,5 @@
 import type { OperationalParams } from '../../services/types/optimization.types';
+import InfoTooltip from '../../components/ui/InfoTooltip';
 
 interface OperationalParamsProps {
   params: OperationalParams;
@@ -19,7 +20,7 @@ const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalP
       </h3>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Hora Inicio Servicio</label>
+          <label className="block text-sm text-[#191c1e] dark:text-white mb-2 tracking-wide flex items-center">Hora inicio servicio<InfoTooltip content="Hora (formato 24h) en la que inicia el servicio de transporte. Define el inicio del horario operativo." /></label>
           <input
             type="number"
             value={params.service_hours_start}
@@ -29,7 +30,7 @@ const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalP
           />
         </div>
         <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Hora Fin Servicio</label>
+          <label className="block text-sm text-[#191c1e] dark:text-white mb-2 tracking-wide flex items-center">Hora fin servicio<InfoTooltip content="Hora (formato 24h) en la que termina el servicio de transporte. Define el fin del horario operativo." /></label>
           <input
             type="number"
             value={params.service_hours_end}
@@ -39,7 +40,7 @@ const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalP
           />
         </div>
         <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Intervalo Slot Tiempo (min)</label>
+          <label className="block text-sm text-[#191c1e] dark:text-white mb-2 tracking-wide flex items-center">Intervalo slot tiempo (min)<InfoTooltip content="Duración en minutos de cada franja horaria para análisis de demanda. Valores menores dividen el día en más franjas." /></label>
           <input
             type="number"
             value={params.time_slot_interval}
@@ -49,7 +50,7 @@ const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalP
           />
         </div>
         <div>
-          <label className="block text-sm font-bold text-[#191c1e] dark:text-white mb-2 uppercase tracking-wide">Rutas por Franja Horaria</label>
+          <label className="block text-sm text-[#191c1e] dark:text-white mb-2 tracking-wide flex items-center">Rutas por franja horaria<InfoTooltip content="Número de rutas a generar por cada franja horaria. Afecta la densidad del servicio en cada periodo." /></label>
           <input
             type="number"
             value={params.num_routes_per_slot}
@@ -67,7 +68,7 @@ const OperationalParamsPresenter = ({ params, onChange, disabled }: OperationalP
               disabled={disabled}
               className="w-5 h-5 accent-[#e31e24] rounded focus:ring-2 focus:ring-[#e31e24] disabled:opacity-50"
             />
-            <span className="text-sm font-bold text-[#191c1e] dark:text-white uppercase tracking-wide">Habilitar Franjas Horarias de Tiempo</span>
+            <span className="text-sm text-[#191c1e] dark:text-white tracking-wide">Habilitar franjas horarias de tiempo<InfoTooltip content="Divide el día en franjas horarias para análisis detallado de demanda por periodo. Útil para identificar picos de demanda." /></span>
           </label>
         </div>
       </div>
