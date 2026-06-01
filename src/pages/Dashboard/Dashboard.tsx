@@ -82,8 +82,6 @@ const DashboardContainer = () => {
       
       <DashboardKPIs kpis={data.kpis} />
       <DashboardMap executions={data.recent_executions} />
-      <SystemStatus status={data.system_status} />
-      <AlertsPanel alerts={mockAlerts} />
       <QuickActions actions={quickActions} />
     </div>
   );
