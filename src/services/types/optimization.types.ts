@@ -207,6 +207,30 @@ export interface ExecutionInfo {
   error_message?: string;
   created_at: string;
   updated_at: string;
+  // KPIs del algoritmo genético (incluidos aquí para facilitar el acceso)
+  convergence_generation?: number;
+  initial_fitness?: number;
+  fitness_improvement?: number;
+  fitness_improvement_pct?: number;
+  avg_fitness_population?: number;
+  worst_fitness?: number;
+  population_diversity?: number;
+  num_routes_generated?: number;
+  avg_stops_per_route?: number;
+  time_per_generation?: number;
+  effective_mutation_rate?: number;
+  effective_crossover_rate?: number;
+  last_checkpoint?: string;
+  completed_time_slots?: number;
+  avg_fitness_per_slot?: number;
+  hamming_distance_avg?: number;
+  genetic_entropy?: number;
+  selection_pressure?: number;
+  convergence_rate?: number;
+  generations_to_threshold?: number;
+  hypervolume?: number;
+  spacing_metric?: number;
+  population_size?: number;
 }
 
 export interface GAConfig {

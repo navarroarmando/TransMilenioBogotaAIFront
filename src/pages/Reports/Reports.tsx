@@ -25,17 +25,13 @@ const ReportsContainer = () => {
   const handlePDFGeneration = async () => {
     if (!selectedExecutionId) return;
     try {
-      const response = await generatePDF(selectedExecutionId, {
+      await generatePDF(selectedExecutionId, {
         include_kpis: includeKPIs,
         include_routes: includeRoutes,
         include_comparison: includeComparison,
         include_charts: includeCharts
       });
-      console.log('PDF report generated:', response);
-      // Optionally trigger download
-      if (response.download_url) {
-        window.open(response.download_url, '_blank');
-      }
+      console.log('PDF report generated and downloaded');
     } catch (error) {
       console.error('Error generating PDF:', error);
     }
@@ -44,16 +40,13 @@ const ReportsContainer = () => {
   const handleExcelGeneration = async () => {
     if (!selectedExecutionId) return;
     try {
-      const response = await generateExcel(selectedExecutionId, {
+      await generateExcel(selectedExecutionId, {
         include_kpis: includeKPIs,
         include_routes: includeRoutes,
         include_comparison: includeComparison,
         include_charts: includeCharts
       });
-      console.log('Excel report generated:', response);
-      if (response.download_url) {
-        window.open(response.download_url, '_blank');
-      }
+      console.log('Excel report generated and downloaded');
     } catch (error) {
       console.error('Error generating Excel:', error);
     }
@@ -62,16 +55,13 @@ const ReportsContainer = () => {
   const handleHTMLGeneration = async () => {
     if (!selectedExecutionId) return;
     try {
-      const response = await generateHTML(selectedExecutionId, {
+      await generateHTML(selectedExecutionId, {
         include_kpis: includeKPIs,
         include_routes: includeRoutes,
         include_comparison: includeComparison,
         include_charts: includeCharts
       });
-      console.log('HTML report generated:', response);
-      if (response.download_url) {
-        window.open(response.download_url, '_blank');
-      }
+      console.log('HTML report generated and downloaded');
     } catch (error) {
       console.error('Error generating HTML:', error);
     }

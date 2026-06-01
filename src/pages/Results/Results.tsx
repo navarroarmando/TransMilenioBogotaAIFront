@@ -2,6 +2,8 @@ import { useResults } from '../../hooks/useResults';
 import { useLocation } from 'react-router-dom';
 import KPITable from './KPITable';
 import ResultsBySlot from './ResultsBySlot';
+import MapaRutas from './MapaRutas';
+import InformacionEjecucion from './InformacionEjecucion';
 
 const ResultsContainer = () => {
   const location = useLocation();
@@ -47,6 +49,7 @@ const ResultsContainer = () => {
         <p className="text-gray-200 dark:text-gray-300">Análisis detallado de las mejoras en el sistema de transporte</p>
       </div>
       
+      {/* Información de ejecución básica */}
       <div className="bg-white dark:bg-[#1a1a2e] rounded-2xl shadow-xl p-6 border border-[#3EA32A]/20 dark:border-[#015EB0]/20">
         <h3 className="text-xl font-bold text-[#191c1e] dark:text-white mb-4">Información de Ejecución</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -65,7 +68,16 @@ const ResultsContainer = () => {
         </div>
       </div>
       
+      {/* Mapa de rutas */}
+      <MapaRutas executionId={data.execution.execution_id} />
+      
+      {/* Información de ejecución detallada con KPIs del AG */}
+      <InformacionEjecucion execution={data.execution} kpis={data.kpis} />
+      
+      {/* KPIs de negocio */}
       <KPITable kpis={data.kpis} />
+      
+      {/* Resultados por slot */}
       <ResultsBySlot resultsBySlot={data.results_by_slot} />
     </div>
   );

@@ -1,33 +1,46 @@
 import { useState, useCallback } from 'react';
-import type { ReportRequest, ReportResponse } from '../services/types/reports.types';
+import type { ReportRequest } from '../services/types/reports.types';
 import { reportsApi } from '../services/api/reportsApi';
 
 export const useReports = () => {
   const [isGenerating, setIsGenerating] = useState(false);
-  
+
+  const downloadBlob = (blob: Blob, filename: string) => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  };
+
   const generatePDF = useCallback(async (executionId: string, options?: ReportRequest['options']) => {
     setIsGenerating(true);
     try {
-      const response: ReportResponse = await reportsApi.generatePdfReport({
+      const blob = await reportsApi.generatePdfReport({
         execution_id: executionId,
         options
       });
-      return response;
+      downloadBlob(blob, `${executionId}_report.pdf`);
+      return { success: true };
     } catch (error) {
       throw error;
     } finally {
       setIsGenerating(false);
     }
   }, []);
-  
+
   const generateExcel = useCallback(async (executionId: string, options?: ReportRequest['options']) => {
     setIsGenerating(true);
     try {
-      const response: ReportResponse = await reportsApi.generateExcelReport({
+      const blob = await reportsApi.generateExcelReport({
         execution_id: executionId,
         options
       });
-      return response;
+      downloadBlob(blob, `${executionId}_report.xlsx`);
+      return { success: true };
     } catch (error) {
       throw error;
     } finally {
@@ -38,11 +51,12 @@ export const useReports = () => {
   const generateHTML = useCallback(async (executionId: string, options?: ReportRequest['options']) => {
     setIsGenerating(true);
     try {
-      const response: ReportResponse = await reportsApi.generateHtmlReport({
+      const blob = await reportsApi.generateHtmlReport({
         execution_id: executionId,
         options
       });
-      return response;
+      downloadBlob(blob, `${executionId}_report.html`);
+      return { success: true };
     } catch (error) {
       throw error;
     } finally {
@@ -50,14 +64,5 @@ export const useReports = () => {
     }
   }, []);
 
-  const downloadReport = useCallback(async (reportId: string) => {
-    try {
-      const response = await reportsApi.downloadReport(reportId);
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  }, []);
-  
-  return { isGenerating, generatePDF, generateExcel, generateHTML, downloadReport };
+  return { isGenerating, generatePDF, generateExcel, generateHTML };
 };

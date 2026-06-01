@@ -1,5 +1,5 @@
 import { API_CONFIG, API_ENDPOINTS } from '../../config/api';
-import type { ReportRequest, ReportResponse } from '../types/reports.types';
+import type { ReportRequest } from '../types/reports.types';
 
 export class ReportsApi {
   private baseUrl: string;
@@ -8,7 +8,7 @@ export class ReportsApi {
     this.baseUrl = API_CONFIG.BASE_URL;
   }
 
-  async generatePdfReport(request: ReportRequest): Promise<ReportResponse> {
+  async generatePdfReport(request: ReportRequest): Promise<Blob> {
     const response = await fetch(
       `${this.baseUrl}${API_ENDPOINTS.REPORTS_PDF}`,
       {
@@ -25,10 +25,10 @@ export class ReportsApi {
       throw new Error('Error generating PDF report');
     }
 
-    return response.json();
+    return response.blob();
   }
 
-  async generateExcelReport(request: ReportRequest): Promise<ReportResponse> {
+  async generateExcelReport(request: ReportRequest): Promise<Blob> {
     const response = await fetch(
       `${this.baseUrl}${API_ENDPOINTS.REPORTS_EXCEL}`,
       {
@@ -45,10 +45,10 @@ export class ReportsApi {
       throw new Error('Error generating Excel report');
     }
 
-    return response.json();
+    return response.blob();
   }
 
-  async generateHtmlReport(request: ReportRequest): Promise<ReportResponse> {
+  async generateHtmlReport(request: ReportRequest): Promise<Blob> {
     const response = await fetch(
       `${this.baseUrl}${API_ENDPOINTS.REPORTS_HTML}`,
       {
@@ -65,24 +65,7 @@ export class ReportsApi {
       throw new Error('Error generating HTML report');
     }
 
-    return response.json();
-  }
-
-  async downloadReport(reportId: string): Promise<{ s3_key: string; message: string }> {
-    const response = await fetch(
-      `${this.baseUrl}${API_ENDPOINTS.REPORTS_DOWNLOAD(reportId)}`,
-      {
-        headers: {
-          'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-        },
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error('Error downloading report');
-    }
-
-    return response.json();
+    return response.blob();
   }
 }
 
