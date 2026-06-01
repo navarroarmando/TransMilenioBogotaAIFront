@@ -26,7 +26,6 @@ const DataManagementContainer = () => {
       </div>
       
       <GTFSUpload onUpload={handleGTFSUpload} isUploading={isUploading} />
-      <DemandUpload onUpload={handleDemandUpload} isUploading={isUploading} />
       <DataPreview files={files} onDelete={deleteFile} />
       <ValidationReport 
         isValid={hasValidFiles && !hasInvalidFiles}
