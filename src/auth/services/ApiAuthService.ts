@@ -38,7 +38,7 @@ export class ApiAuthStrategy implements AuthStrategy {
     }
   }
 
-  async register(_name: string, username: string, password: string): Promise<AuthResult> {
+  async register(name: string, username: string, password: string): Promise<AuthResult> {
     try {
       const response = await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH_REGISTER}`, {
         method: 'POST',
@@ -47,6 +47,8 @@ export class ApiAuthStrategy implements AuthStrategy {
         },
         body: JSON.stringify({
           username: username,
+          email: `${username}@example.com`,
+          full_name: name,
           password: password,
         }),
       });
