@@ -45,13 +45,6 @@ const LoginPresenter = ({ onSubmit, isLoading, error, isDark, toggleTheme }: Log
             <h1 className="text-3xl font-bold text-[#191c1e] dark:text-white">TransMind DSS</h1>
             <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mt-2">Sistema de Soporte a Decisiones - TransMilenio Bogotá</p>
           </div>
-          <button
-            onClick={toggleTheme}
-            className="p-3 rounded-xl bg-[#3EA32A]/10 dark:bg-[#015EB0]/20 hover:bg-[#3EA32A]/20 dark:hover:bg-[#015EB0]/30 transition-all duration-300"
-            title={isDark ? 'Modo claro' : 'Modo oscuro'}
-          >
-            {isDark ? <Sun className="w-5 h-5 text-[#191c1e] dark:text-white" /> : <Moon className="w-5 h-5 text-[#191c1e]" />}
-          </button>
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-6">

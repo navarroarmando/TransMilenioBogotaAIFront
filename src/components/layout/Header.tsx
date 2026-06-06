@@ -21,13 +21,6 @@ const HeaderPresenter = ({ userName, userUsername, onLogout, isDark, toggleTheme
       </div>
       
       <div className="flex items-center gap-4">
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-lg bg-[#3EA32A]/10 dark:bg-[#015EB0]/20 hover:bg-[#3EA32A]/20 dark:hover:bg-[#015EB0]/30 transition-all duration-200 text-[#191c1e] dark:text-gray-200"
-          title={isDark ? 'Modo claro' : 'Modo oscuro'}
-        >
-          {isDark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-        </button>
         
         <div className="relative">
           <button

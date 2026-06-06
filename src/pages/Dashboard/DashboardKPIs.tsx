@@ -42,32 +42,22 @@ const DashboardKPIsPresenter = ({ kpis }: DashboardKPIsProps) => {
       <KPICard 
         title="Total Ejecuciones" 
         value={kpis.total_executions.toLocaleString()} 
-        trend={12.5}
-        trendLabel="vs mes anterior"
       />
       <KPICard 
         title="Ejecuciones Completadas" 
         value={kpis.completed_executions.toLocaleString()} 
-        trend={8.3}
-        trendLabel="vs mes anterior"
       />
       <KPICard 
         title="Ejecuciones Fallidas" 
         value={kpis.failed_executions.toLocaleString()} 
-        trend={-15.2}
-        trendLabel="vs mes anterior"
       />
       <KPICard 
         title="Duración Promedio" 
         value={`${kpis.avg_duration_seconds.toFixed(0)}s`} 
-        trend={-5.7}
-        trendLabel="vs mes anterior"
       />
       <KPICard 
         title="Mejor Fitness Histórico" 
         value={kpis.best_fitness_all_time.toFixed(4)} 
-        trend={2.1}
-        trendLabel="vs mes anterior"
       />
     </div>
   );
