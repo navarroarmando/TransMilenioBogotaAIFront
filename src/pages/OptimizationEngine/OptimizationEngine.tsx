@@ -1,4 +1,5 @@
 import { useOptimization } from '../../hooks/useOptimization';
+import { useNavigate } from 'react-router-dom';
 import OperationalParams from './OperationalParams';
 import GAParams from './GAParams';
 import FitnessSliders from './FitnessSliders';
@@ -9,9 +10,11 @@ import ProgressIndicator from './ProgressIndicator';
 import { Play, Square, ArrowRight } from 'lucide-react';
 
 const OptimizationEngineContainer = () => {
+  const navigate = useNavigate();
   const {
     params,
     isRunning,
+    isCompleted,
     logs,
     progress,
     results,
@@ -125,18 +128,17 @@ const OptimizationEngineContainer = () => {
           <Square className="w-5 h-5" />
           Detener
         </button>
-        {results && (
-          <button
-            onClick={() => window.location.href = '/results'}
-            className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#0f172a] to-[#475569] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300 font-bold shadow-md"
-          >
-            <ArrowRight className="w-5 h-5" />
-            Ver Resultados
-          </button>
-        )}
+        <button
+          onClick={() => navigate('/results')}
+          disabled={!isCompleted}
+          className="flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-[#0f172a] to-[#475569] text-white rounded-xl hover:shadow-lg hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-bold shadow-md"
+        >
+          <ArrowRight className="w-5 h-5" />
+          Ver Resultados
+        </button>
       </div>
       
-      <ProgressIndicator progress={progress} isRunning={isRunning} />
+      <ProgressIndicator progress={progress} isRunning={isRunning} isCompleted={isCompleted} />
       <ExecutionLogs logs={logs} />
     </div>
   );
