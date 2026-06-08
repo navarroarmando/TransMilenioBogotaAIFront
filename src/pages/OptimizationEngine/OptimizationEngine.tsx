@@ -5,8 +5,8 @@ import GAParams from './GAParams';
 import FitnessSliders from './FitnessSliders';
 import VisualizationParams from './VisualizationParams';
 import BusinessParams from './BusinessParams';
-import ExecutionLogs from './ExecutionLogs';
-import ProgressIndicator from './ProgressIndicator';
+import ExecutionLogs from '../../components/shared/ExecutionLogs';
+import ProgressIndicator from '../../components/shared/ProgressIndicator';
 import { Play, Square, ArrowRight } from 'lucide-react';
 
 const OptimizationEngineContainer = () => {

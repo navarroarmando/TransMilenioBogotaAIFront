@@ -6,6 +6,7 @@ import {
   BarChart3, 
   History, 
   FileText,
+  RefreshCw,
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
@@ -20,6 +21,7 @@ const navItems: NavItem[] = [
   { path: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-5 h-5" /> },
   { path: '/data-management', label: 'Gestión de Datos', icon: <Database className="w-5 h-5" /> },
   { path: '/optimization', label: 'Motor de Optimización', icon: <Settings className="w-5 h-5" /> },
+  { path: '/retrain', label: 'Reentrenar', icon: <RefreshCw className="w-5 h-5" /> },
   { path: '/results', label: 'Resultados', icon: <BarChart3 className="w-5 h-5" /> },
   { path: '/history', label: 'Historial', icon: <History className="w-5 h-5" /> },
   { path: '/reports', label: 'Informes', icon: <FileText className="w-5 h-5" /> },

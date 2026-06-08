@@ -6,6 +6,7 @@ export interface ExecutionSummary {
   duration_seconds?: number;
   best_fitness?: number;
   parameters?: Record<string, any>;
+  last_checkpoint?: string;
 }
 
 export interface HistoryListResponse {

@@ -30,7 +30,7 @@ const InformacionEjecucion = ({ execution, kpis }: InformacionEjecucionProps) =>
     { label: 'Time Slot Actual', value: execution.current_time_slot !== undefined ? `${execution.current_time_slot} / ${execution.total_time_slots || 'N/A'}` : 'N/A' },
     { label: 'Fecha de Inicio', value: formatDate(execution.started_at) },
     { label: 'Fecha de Finalización', value: formatDate(execution.completed_at) },
-    { label: 'Duración (segundos)', value: execution.duration_seconds !== undefined ? execution.duration_seconds.toFixed(0) : 'N/A' },
+    { label: 'Duración (segundos)', value: formatNumber(execution.duration_seconds, 0) },
     { label: 'Mejor Fitness', value: formatNumber(execution.best_fitness, 6) },
     { label: 'Generación de Convergencia', value: kpis.convergence_generation !== undefined ? kpis.convergence_generation : 'N/A' },
     { label: 'Fitness Inicial', value: formatNumber(kpis.initial_fitness, 6) },

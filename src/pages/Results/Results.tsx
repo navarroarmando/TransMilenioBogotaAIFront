@@ -42,6 +42,47 @@ const ResultsContainer = () => {
     );
   }
 
+  // Verificar si la ejecución falló, está en running, o tiene error_message
+  const isFailed = data.execution.status === 'failed' || data.execution.status === 'error';
+  const isRunning = data.execution.status === 'running';
+  const hasError = data.execution.error_message !== null && data.execution.error_message !== undefined;
+  
+  if (isFailed || isRunning || (hasError && data.execution.status !== 'completed')) {
+    return (
+      <div className="p-6 space-y-6">
+        <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-2xl p-6">
+          <h3 className="text-xl font-bold text-red-700 dark:text-red-200 mb-2">Ejecución Fallida o Incompleta</h3>
+          <p className="text-red-600 dark:text-red-300 mb-4">
+            La ejecución <span className="font-mono font-bold">{data.execution.execution_id}</span> {isFailed ? 'falló' : 'está incompleta'} durante el proceso de optimización.
+          </p>
+          {data.execution.error_message && (
+            <div className="bg-red-100 dark:bg-red-900/30 rounded-lg p-4 mt-4">
+              <p className="text-sm font-bold text-red-700 dark:text-red-200 mb-2">Mensaje de error:</p>
+              <p className="text-sm text-red-600 dark:text-red-300 font-mono">{data.execution.error_message}</p>
+            </div>
+          )}
+        </div>
+        <div className="bg-gray-50 dark:bg-[#2a2a4a] rounded-2xl p-6">
+          <h3 className="text-lg font-bold text-[#191c1e] dark:text-white mb-4">Información de Ejecución</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white dark:bg-[#1a1a2e] rounded-xl p-4">
+              <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">ID de Ejecución</p>
+              <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.execution.execution_id}</p>
+            </div>
+            <div className="bg-white dark:bg-[#1a1a2e] rounded-xl p-4">
+              <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">Estado</p>
+              <p className="text-lg font-bold text-red-600 dark:text-red-400">{data.execution.status}</p>
+            </div>
+            <div className="bg-white dark:bg-[#1a1a2e] rounded-xl p-4">
+              <p className="text-sm text-[#5d3f3c] dark:text-gray-400 mb-1">Modo</p>
+              <p className="text-lg font-bold text-[#191c1e] dark:text-white">{data.execution.mode}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="bg-gradient-to-r from-[#3EA32A] to-[#2E7A1F] dark:from-[#1a3a5c] dark:to-[#015EB0] rounded-2xl p-8 shadow-2xl">

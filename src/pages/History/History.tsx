@@ -1,7 +1,7 @@
 import { useHistory } from '../../hooks/useHistory';
 import { useNavigate } from 'react-router-dom';
 import type { Execution } from '../../services/types/optimization.types';
-import { Eye, CheckCircle, Clock, XCircle, FileText } from 'lucide-react';
+import { Eye, CheckCircle, Clock, XCircle, FileText, RefreshCw } from 'lucide-react';
 
 const HistoryContainer = () => {
   const { history, isLoading, error } = useHistory();
@@ -13,6 +13,10 @@ const HistoryContainer = () => {
 
   const handleGenerateReport = (executionId: string) => {
     navigate('/reports', { state: { selectedExecutionId: executionId } });
+  };
+
+  const handleRetrain = (executionId: string) => {
+    navigate('/retrain', { state: { selectedExecutionId: executionId } });
   };
 
   if (isLoading) {
@@ -161,6 +165,13 @@ const HistoryContainer = () => {
                         >
                           <Eye className="w-4 h-4" />
                           Ver Detalles
+                        </button>
+                        <button 
+                          onClick={() => handleRetrain(execution.execution_id)}
+                          className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-[#e31e24] to-[#c00014] text-white rounded-lg hover:shadow-lg hover:scale-105 transition-all duration-300 font-semibold"
+                        >
+                          <RefreshCw className="w-4 h-4" />
+                          Reentrenar
                         </button>
                         <button 
                           onClick={() => handleGenerateReport(execution.execution_id)}

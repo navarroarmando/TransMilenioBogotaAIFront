@@ -8,6 +8,7 @@ import MainLayout from './components/layout/MainLayout';
 import Dashboard from './pages/Dashboard/Dashboard';
 import DataManagement from './pages/DataManagement/DataManagement';
 import OptimizationEngine from './pages/OptimizationEngine/OptimizationEngine';
+import RetrainEngine from './pages/RetrainEngine/RetrainEngine';
 import Results from './pages/Results/Results';
 import History from './pages/History/History';
 import Reports from './pages/Reports/Reports';
@@ -30,6 +31,7 @@ const AppRoutes = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="data-management" element={<DataManagement />} />
         <Route path="optimization" element={<OptimizationEngine />} />
+        <Route path="retrain" element={<RetrainEngine />} />
         <Route path="results" element={<Results />} />
         <Route path="history" element={<History />} />
         <Route path="reports" element={<Reports />} />
