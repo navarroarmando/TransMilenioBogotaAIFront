@@ -1,9 +1,8 @@
 import { useResults } from '../../hooks/useResults';
 import { useLocation } from 'react-router-dom';
-import KPITable from './KPITable';
-import ResultsBySlot from './ResultsBySlot';
 import MapaRutas from './MapaRutas';
 import InformacionEjecucion from './InformacionEjecucion';
+import RouteDetailsTable from './RouteDetailsTable';
 
 const ResultsContainer = () => {
   const location = useLocation();
@@ -112,14 +111,11 @@ const ResultsContainer = () => {
       {/* Mapa de rutas */}
       <MapaRutas executionId={data.execution.execution_id} />
       
+      {/* Detalle de rutas generadas */}
+      <RouteDetailsTable resultsBySlot={data.results_by_slot} />
+      
       {/* Información de ejecución detallada con KPIs del AG */}
       <InformacionEjecucion execution={data.execution} kpis={data.kpis} />
-      
-      {/* KPIs de negocio */}
-      <KPITable kpis={data.kpis} />
-      
-      {/* Resultados por slot */}
-      <ResultsBySlot resultsBySlot={data.results_by_slot} />
     </div>
   );
 };
