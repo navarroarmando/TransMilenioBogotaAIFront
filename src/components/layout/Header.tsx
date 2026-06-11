@@ -31,7 +31,6 @@ const HeaderPresenter = ({ userName, userUsername, onLogout }: HeaderPresenterPr
             </div>
             <div className="text-right hidden sm:block">
               <p className="font-medium text-[#191c1e] dark:text-gray-100">{userName}</p>
-              <p className="text-sm text-[#5d3f3c] dark:text-gray-400">{userUsername}</p>
             </div>
             <ChevronDown className={`w-4 h-4 text-[#191c1e] dark:text-gray-300 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
           </button>
