@@ -1,6 +1,5 @@
 import { useDataManagement } from '../../hooks/useDataManagement';
 import GTFSUpload from './GTFSUpload';
-import DemandUpload from './DemandUpload';
 import DataPreview from './DataPreview';
 import ValidationReport from './ValidationReport';
 
@@ -9,10 +8,6 @@ const DataManagementContainer = () => {
 
   const handleGTFSUpload = (file: File) => {
     uploadFile(file, 'gtfs');
-  };
-
-  const handleDemandUpload = (file: File) => {
-    uploadFile(file, 'demand');
   };
 
   const hasValidFiles = files.some(f => f.status === 'valid');

@@ -1,10 +1,8 @@
 import { useState, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { useTheme } from '../../contexts/ThemeContext';
 import type { Credentials } from '../types/auth.types';
 import { z } from 'zod';
-import { Moon, Sun } from 'lucide-react';
 
 const loginSchema = z.object({
   username: z.string().min(1, 'Usuario requerido'),
@@ -15,11 +13,9 @@ interface LoginPresenterProps {
   onSubmit: (credentials: Credentials) => void;
   isLoading: boolean;
   error: string | null;
-  isDark: boolean;
-  toggleTheme: () => void;
 }
 
-const LoginPresenter = ({ onSubmit, isLoading, error, isDark, toggleTheme }: LoginPresenterProps) => {
+const LoginPresenter = ({ onSubmit, isLoading, error }: LoginPresenterProps) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [validationError, setValidationError] = useState<string | null>(null);
@@ -119,7 +115,6 @@ const LoginPresenter = ({ onSubmit, isLoading, error, isDark, toggleTheme }: Log
 const LoginContainer = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const { isDark, toggleTheme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
@@ -137,7 +132,7 @@ const LoginContainer = () => {
     }
   }, [login, navigate]);
   
-  return <LoginPresenter onSubmit={handleSubmit} isLoading={isLoading} error={error} isDark={isDark} toggleTheme={toggleTheme} />;
+  return <LoginPresenter onSubmit={handleSubmit} isLoading={isLoading} error={error} />;
 };
 
 export default LoginContainer;

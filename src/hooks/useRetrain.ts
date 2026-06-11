@@ -1,5 +1,4 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import type { OptimizationParams } from '../services/types/optimization.types';
 
 interface WebSocketLog {
@@ -17,7 +16,6 @@ interface RetrainParams {
 }
 
 export const useRetrain = () => {
-  const navigate = useNavigate();
   const [isRunning, setIsRunning] = useState(false);
   const [isCompleted, setIsCompleted] = useState(false);
   const [logs, setLogs] = useState<string[]>([]);

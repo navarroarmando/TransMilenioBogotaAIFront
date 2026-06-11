@@ -109,7 +109,7 @@ const RetrainEngineContainer = () => {
     },
     mode: 'individual'
   });
-  const [hasSelectedExecution, setHasSelectedExecution] = useState(false);
+  const [_hasSelectedExecution, _setHasSelectedExecution] = useState(false);
 
   // Cargar ejecución pre-seleccionada si viene de historial
   useEffect(() => {
@@ -118,7 +118,7 @@ const RetrainEngineContainer = () => {
       const exec = executions.find(e => e.execution_id === state.selectedExecutionId);
       if (exec) {
         setSelectedExecution(exec);
-        setHasSelectedExecution(true);
+        _setHasSelectedExecution(true);
         // Aquí cargaríamos los parámetros del endpoint
         loadExecutionParams(state.selectedExecutionId);
       }
@@ -132,18 +132,19 @@ const RetrainEngineContainer = () => {
       
       // Mapear la configuración del backend al formato del frontend
       if (results.ga_config) {
+        const gaConfig = results.ga_config;
         setParams(prev => {
           // Convertir distance_bias_km al formato correcto si viene como objeto simple
           let distanceBias = prev.parameters.distance_bias_km;
-          if (results.ga_config.distance_bias_km) {
-            if (Array.isArray(results.ga_config.distance_bias_km)) {
-              distanceBias = results.ga_config.distance_bias_km;
-            } else if (typeof results.ga_config.distance_bias_km === 'object') {
+          if (gaConfig.distance_bias_km) {
+            if (Array.isArray(gaConfig.distance_bias_km)) {
+              distanceBias = gaConfig.distance_bias_km;
+            } else if (typeof gaConfig.distance_bias_km === 'object') {
               // Si viene como objeto simple {min, max, weight}, convertir a array
-              distanceBias = [results.ga_config.distance_bias_km];
-            } else if (typeof results.ga_config.distance_bias_km === 'number') {
+              distanceBias = [gaConfig.distance_bias_km];
+            } else if (typeof gaConfig.distance_bias_km === 'number') {
               // Si viene como número simple, crear un rango por defecto
-              distanceBias = [{ min: 0, max: results.ga_config.distance_bias_km, weight: 1.0 }];
+              distanceBias = [{ min: 0, max: gaConfig.distance_bias_km, weight: 1.0 }];
             }
           }
 
@@ -151,69 +152,72 @@ const RetrainEngineContainer = () => {
             ...prev,
             parameters: {
               ...prev.parameters,
-              population_size: results.ga_config.population_size || prev.parameters.population_size,
-              generations: results.ga_config.generations || prev.parameters.generations,
-              mutation_rate: results.ga_config.mutation_rate || prev.parameters.mutation_rate,
-              crossover_rate: results.ga_config.crossover_rate || prev.parameters.crossover_rate,
-              elitism_count: results.ga_config.elitism_count || prev.parameters.elitism_count,
-              tournament_size: results.ga_config.tournament_size || prev.parameters.tournament_size,
-              min_route_length: results.ga_config.min_route_length || prev.parameters.min_route_length,
-              max_route_length: results.ga_config.max_route_length || prev.parameters.max_route_length,
+              population_size: gaConfig.population_size || prev.parameters.population_size,
+              generations: gaConfig.generations || prev.parameters.generations,
+              mutation_rate: gaConfig.mutation_rate || prev.parameters.mutation_rate,
+              crossover_rate: gaConfig.crossover_rate || prev.parameters.crossover_rate,
+              elitism_count: gaConfig.elitism_count || prev.parameters.elitism_count,
+              tournament_size: gaConfig.tournament_size || prev.parameters.tournament_size,
+              min_route_length: gaConfig.min_route_length || prev.parameters.min_route_length,
+              max_route_length: gaConfig.max_route_length || prev.parameters.max_route_length,
               distance_bias_km: distanceBias,
-              enable_dijkstra_decoding: results.ga_config.enable_dijkstra_decoding ?? prev.parameters.enable_dijkstra_decoding,
-              max_travel_time_min: results.ga_config.max_travel_time_min || prev.parameters.max_travel_time_min
+              enable_dijkstra_decoding: gaConfig.enable_dijkstra_decoding ?? prev.parameters.enable_dijkstra_decoding,
+              max_travel_time_min: gaConfig.max_travel_time_min || prev.parameters.max_travel_time_min
             }
           };
         });
       }
       
       if (results.operational_config) {
+        const operationalConfig = results.operational_config;
         setParams(prev => ({
           ...prev,
           operational: {
-            service_hours_start: results.operational_config.service_hours_start || prev.operational.service_hours_start,
-            service_hours_end: results.operational_config.service_hours_end || prev.operational.service_hours_end,
-            time_slot_interval: results.operational_config.time_slot_interval || prev.operational.time_slot_interval,
-            num_routes_per_slot: results.operational_config.num_routes_per_slot || prev.operational.num_routes_per_slot,
-            enable_time_slots: results.operational_config.enable_time_slots ?? prev.operational.enable_time_slots
+            service_hours_start: operationalConfig.service_hours_start || prev.operational.service_hours_start,
+            service_hours_end: operationalConfig.service_hours_end || prev.operational.service_hours_end,
+            time_slot_interval: operationalConfig.time_slot_interval || prev.operational.time_slot_interval,
+            num_routes_per_slot: operationalConfig.num_routes_per_slot || prev.operational.num_routes_per_slot,
+            enable_time_slots: operationalConfig.enable_time_slots ?? prev.operational.enable_time_slots
           },
           parameters: {
             ...prev.parameters,
-            bus_capacity: results.operational_config.bus_capacity || prev.parameters.bus_capacity
+            bus_capacity: operationalConfig.bus_capacity || prev.parameters.bus_capacity
           }
         }));
       }
       
       if (results.technical_config) {
+        const technicalConfig = results.technical_config;
         setParams(prev => ({
           ...prev,
           parameters: {
             ...prev.parameters,
-            checkpoint_interval: results.technical_config.checkpoint_interval || prev.parameters.checkpoint_interval,
-            log_interval: results.technical_config.log_interval || prev.parameters.log_interval,
-            demand_sample_ratio: results.technical_config.demand_sample_ratio || prev.parameters.demand_sample_ratio,
-            demand_filter_threshold: results.technical_config.demand_filter_threshold || prev.parameters.demand_filter_threshold,
-            enable_numpy_vectorization: results.technical_config.enable_numpy_vectorization ?? prev.parameters.enable_numpy_vectorization,
-            enable_spatial_index: results.technical_config.enable_spatial_index ?? prev.parameters.enable_spatial_index,
-            enable_performance_timer: results.technical_config.enable_performance_timer ?? prev.parameters.enable_performance_timer
+            checkpoint_interval: technicalConfig.checkpoint_interval || prev.parameters.checkpoint_interval,
+            log_interval: technicalConfig.log_interval || prev.parameters.log_interval,
+            demand_sample_ratio: technicalConfig.demand_sample_ratio || prev.parameters.demand_sample_ratio,
+            demand_filter_threshold: technicalConfig.demand_filter_threshold || prev.parameters.demand_filter_threshold,
+            enable_numpy_vectorization: technicalConfig.enable_numpy_vectorization ?? prev.parameters.enable_numpy_vectorization,
+            enable_spatial_index: technicalConfig.enable_spatial_index ?? prev.parameters.enable_spatial_index,
+            enable_performance_timer: technicalConfig.enable_performance_timer ?? prev.parameters.enable_performance_timer
           },
           visualization_config: {
-            visualization_graph: results.technical_config.visualization_graph || prev.visualization_config.visualization_graph,
-            enable_visualization: results.technical_config.enable_visualization ?? prev.visualization_config.enable_visualization
+            visualization_graph: technicalConfig.visualization_graph || (prev.visualization_config?.visualization_graph || 'integrated_osm'),
+            enable_visualization: technicalConfig.enable_visualization ?? (prev.visualization_config?.enable_visualization ?? true)
           }
         }));
       }
       
       if (results.fitness_weights) {
+        const fitnessWeights = results.fitness_weights;
         setParams(prev => {
           // Calcular la suma de los 6 pesos del backend
           const backendSum = 
-            (results.fitness_weights.efficiency || 0) +
-            (results.fitness_weights.economy || 0) +
-            (results.fitness_weights.equity || 0) +
-            (results.fitness_weights.coverage || 0) +
-            (results.fitness_weights.transfers || 0) +
-            (results.fitness_weights.speed || 0);
+            (fitnessWeights.efficiency || 0) +
+            (fitnessWeights.economy || 0) +
+            (fitnessWeights.equity || 0) +
+            (fitnessWeights.coverage || 0) +
+            (fitnessWeights.transfers || 0) +
+            (fitnessWeights.speed || 0);
           
           // Calcular el remainder para completar 100%
           const remainder = Math.max(0, 1 - backendSum);
@@ -230,23 +234,23 @@ const RetrainEngineContainer = () => {
             ...prev,
             fitness_weights: {
               ...prev.fitness_weights,
-              efficiency: results.fitness_weights.efficiency !== undefined ? results.fitness_weights.efficiency : prev.fitness_weights.efficiency,
-              economy: results.fitness_weights.economy !== undefined ? results.fitness_weights.economy : prev.fitness_weights.economy,
-              equity: results.fitness_weights.equity !== undefined ? results.fitness_weights.equity : prev.fitness_weights.equity,
-              coverage: results.fitness_weights.coverage !== undefined ? results.fitness_weights.coverage : prev.fitness_weights.coverage,
-              transfers: results.fitness_weights.transfers !== undefined ? results.fitness_weights.transfers : prev.fitness_weights.transfers,
-              speed: results.fitness_weights.speed !== undefined ? results.fitness_weights.speed : prev.fitness_weights.speed,
+              efficiency: fitnessWeights.efficiency !== undefined ? fitnessWeights.efficiency : prev.fitness_weights.efficiency,
+              economy: fitnessWeights.economy !== undefined ? fitnessWeights.economy : prev.fitness_weights.economy,
+              equity: fitnessWeights.equity !== undefined ? fitnessWeights.equity : prev.fitness_weights.equity,
+              coverage: fitnessWeights.coverage !== undefined ? fitnessWeights.coverage : prev.fitness_weights.coverage,
+              transfers: fitnessWeights.transfers !== undefined ? fitnessWeights.transfers : prev.fitness_weights.transfers,
+              speed: fitnessWeights.speed !== undefined ? fitnessWeights.speed : prev.fitness_weights.speed,
               // Campos faltantes con valores calculados para completar 100%
-              speed_max: results.fitness_weights.speed_max !== undefined ? results.fitness_weights.speed_max : defaultValue,
-              road_capacity: results.fitness_weights.road_capacity !== undefined ? results.fitness_weights.road_capacity : defaultValue,
-              road_class: results.fitness_weights.road_class !== undefined ? results.fitness_weights.road_class : defaultValue,
-              travel_time_real: results.fitness_weights.travel_time_real !== undefined ? results.fitness_weights.travel_time_real : defaultValue,
-              operating_cost: results.fitness_weights.operating_cost !== undefined ? results.fitness_weights.operating_cost : defaultValue,
-              frequency: results.fitness_weights.frequency !== undefined ? results.fitness_weights.frequency : defaultValue,
-              accessibility: results.fitness_weights.accessibility !== undefined ? results.fitness_weights.accessibility : defaultValue,
-              bus_type_compatibility: results.fitness_weights.bus_type_compatibility !== undefined ? results.fitness_weights.bus_type_compatibility : defaultValue,
-              population_density: results.fitness_weights.population_density !== undefined ? results.fitness_weights.population_density : defaultValue,
-              redundancy: results.fitness_weights.redundancy !== undefined ? results.fitness_weights.redundancy : defaultValue
+              speed_max: fitnessWeights.speed_max !== undefined ? fitnessWeights.speed_max : defaultValue,
+              road_capacity: fitnessWeights.road_capacity !== undefined ? fitnessWeights.road_capacity : defaultValue,
+              road_class: fitnessWeights.road_class !== undefined ? fitnessWeights.road_class : defaultValue,
+              travel_time_real: fitnessWeights.travel_time_real !== undefined ? fitnessWeights.travel_time_real : defaultValue,
+              operating_cost: fitnessWeights.operating_cost !== undefined ? fitnessWeights.operating_cost : defaultValue,
+              frequency: fitnessWeights.frequency !== undefined ? fitnessWeights.frequency : defaultValue,
+              accessibility: fitnessWeights.accessibility !== undefined ? fitnessWeights.accessibility : defaultValue,
+              bus_type_compatibility: fitnessWeights.bus_type_compatibility !== undefined ? fitnessWeights.bus_type_compatibility : defaultValue,
+              population_density: fitnessWeights.population_density !== undefined ? fitnessWeights.population_density : defaultValue,
+              redundancy: fitnessWeights.redundancy !== undefined ? fitnessWeights.redundancy : defaultValue
             }
           };
         });
@@ -310,9 +314,6 @@ const RetrainEngineContainer = () => {
     setParams({ ...params, business_config });
   };
 
-  const totalFitness = Object.values(params.fitness_weights).reduce((sum, val) => sum + val, 0);
-  const isValidFitness = Math.abs(totalFitness - 1.0) < 0.01;
-
   return (
     <div className="space-y-8 animate-fade-in">
       <div className="bg-gradient-to-r from-[#3EA32A] to-[#2E7A1F] dark:from-[#1a3a5c] dark:to-[#015EB0] rounded-2xl p-8 shadow-2xl">
@@ -338,7 +339,7 @@ const RetrainEngineContainer = () => {
                   onChange={(e) => {
                     const exec = executions.find(ex => ex.execution_id === e.target.value);
                     setSelectedExecution(exec || null);
-                    setHasSelectedExecution(!!exec);
+                    _setHasSelectedExecution(!!exec);
                     if (exec) {
                       loadExecutionParams(exec.execution_id);
                     }

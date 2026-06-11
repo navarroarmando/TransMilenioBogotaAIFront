@@ -1,8 +1,6 @@
 import { useDashboardData } from '../../hooks/useDashboardData';
 import DashboardKPIs from './DashboardKPIs';
 import DashboardMap from './DashboardMap';
-import SystemStatus from './SystemStatus';
-import AlertsPanel from './AlertsPanel';
 import QuickActions from './QuickActions';
 import { Play, Settings, FileText } from 'lucide-react';
 
@@ -58,20 +56,6 @@ const DashboardContainer = () => {
     }
   ];
 
-  const mockAlerts = [
-    {
-      id: '1',
-      type: 'warning' as const,
-      message: 'Alta congestión en zona norte',
-      location: 'Barrio Norte - Horario pico mañana'
-    },
-    {
-      id: '2',
-      type: 'info' as const,
-      message: 'Nueva ruta propuesta disponible',
-      location: 'Centro - Universidad'
-    }
-  ];
 
   return (
     <div className="space-y-8 animate-fade-in">

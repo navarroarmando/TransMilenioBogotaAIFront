@@ -6,7 +6,6 @@ import type {
   BusinessConfig,
   ParallelConfig,
   OutputConfig,
-  DistanceBiasRange,
   Stop,
   Route,
   KPIs,
@@ -109,7 +108,7 @@ export const mockParallelConfig: ParallelConfig = {
   log_resource_usage: true,
   max_cpu_percent: 95.0,
   max_memory_percent: 95.0,
-  max_memory_mb: null,
+  max_memory_mb: undefined,
   throttle_on_limit: true,
   throttle_factor: 0.5,
   num_workers: 16,
@@ -197,14 +196,20 @@ export const mockKPIsAfter: KPIs = {
 };
 
 export const mockOptimizationResults: OptimizationResults = {
-  execution_id: 'EXEC-2024-001',
-  timestamp: '2024-01-15T10:30:00Z',
-  mode: 'individual',
+  execution: {
+    id: '1',
+    execution_id: 'EXEC-2024-001',
+    mode: 'individual',
+    status: 'completed',
+    progress: 100,
+    created_at: '2024-01-15T10:30:00Z',
+    updated_at: '2024-01-15T10:33:00Z',
+    duration_seconds: 180
+  },
   parameters: mockGAParams,
   fitness_weights: mockFitnessWeights,
   results_by_slot: {},
-  kpis: mockKPIsAfter,
-  duration_seconds: 180
+  kpis: mockKPIsAfter
 };
 
 export const mockHistory: Execution[] = [

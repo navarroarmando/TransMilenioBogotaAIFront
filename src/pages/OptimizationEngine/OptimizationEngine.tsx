@@ -17,7 +17,6 @@ const OptimizationEngineContainer = () => {
     isCompleted,
     logs,
     progress,
-    results,
     updateParams,
     startOptimization,
     stopOptimization

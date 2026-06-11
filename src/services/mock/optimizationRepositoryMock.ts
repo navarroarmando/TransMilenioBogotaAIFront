@@ -1,11 +1,10 @@
 import type { OptimizationResults, OptimizationParams, Execution } from '../types/optimization.types';
-import type { OptimizationRepository } from '../api/optimizationApi';
 import {
   mockOptimizationResults,
   mockHistory
 } from './optimizationMock';
 
-export class MockOptimizationRepository implements OptimizationRepository {
+export class MockOptimizationRepository {
   async getResults(_executionId: string): Promise<OptimizationResults> {
     return new Promise((resolve) => {
       setTimeout(() => {

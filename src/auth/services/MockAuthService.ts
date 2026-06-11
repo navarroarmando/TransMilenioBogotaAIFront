@@ -22,7 +22,7 @@ export class MockAuthStrategy implements AuthStrategy {
     throw new Error('Credenciales inválidas');
   }
   
-  async register(_name: string, username: string, password: string): Promise<AuthResult> {
+  async register(_name: string, username: string, _password: string): Promise<AuthResult> {
     const user: User = {
       id: Date.now().toString(),
       username,

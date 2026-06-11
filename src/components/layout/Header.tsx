@@ -1,17 +1,14 @@
 import { useState } from 'react';
 import { useAuth } from '../../auth/context/AuthContext';
-import { useTheme } from '../../contexts/ThemeContext';
-import { User, LogOut, Moon, Sun, ChevronDown } from 'lucide-react';
+import { User, LogOut, ChevronDown } from 'lucide-react';
 
 interface HeaderPresenterProps {
   userName: string;
   userUsername: string;
   onLogout: () => void;
-  isDark: boolean;
-  toggleTheme: () => void;
 }
 
-const HeaderPresenter = ({ userName, userUsername, onLogout, isDark, toggleTheme }: HeaderPresenterProps) => {
+const HeaderPresenter = ({ userName, userUsername, onLogout }: HeaderPresenterProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   return (
@@ -59,7 +56,6 @@ const HeaderPresenter = ({ userName, userUsername, onLogout, isDark, toggleTheme
 
 const Header = () => {
   const { user, logout } = useAuth();
-  const { isDark, toggleTheme } = useTheme();
   
   if (!user) return null;
   
@@ -68,8 +64,6 @@ const Header = () => {
       userName={user.name} 
       userUsername={user.username} 
       onLogout={logout}
-      isDark={isDark}
-      toggleTheme={toggleTheme}
     />
   );
 };
