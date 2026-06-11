@@ -7,6 +7,7 @@ interface AuthContextValue extends AuthState {
   login: (credentials: Credentials) => Promise<void>;
   logout: () => Promise<void>;
   register: (name: string, username: string, password: string) => Promise<void>;
+  updateProfile: (data: { email?: string; full_name?: string; password?: string }) => Promise<User>;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -61,14 +62,21 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     await authStrategy.logout();
     setUser(null);
   }, [authStrategy]);
-  
+
+  const updateProfile = useCallback(async (data: { email?: string; full_name?: string; password?: string }) => {
+    const updatedUser = await authStrategy.updateProfile(data);
+    setUser(updatedUser);
+    return updatedUser;
+  }, [authStrategy]);
+
   const value: AuthContextValue = {
     user,
     isAuthenticated: !!user,
     isLoading,
     login,
     logout,
-    register
+    register,
+    updateProfile
   };
   
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

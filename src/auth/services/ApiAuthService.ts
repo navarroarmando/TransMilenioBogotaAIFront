@@ -145,12 +145,12 @@ export class ApiAuthStrategy implements AuthStrategy {
       }
 
       const data = await response.json();
-      
+
       // Mapear respuesta del backend a User
       return {
         id: data.id || data.username || Date.now().toString(),
         username: data.username || '',
-        name: data.username || 'Usuario',
+        name: data.full_name || data.username || 'Usuario',
         city: 'TransMilenio Bogotá',
         createdAt: data.created_at || new Date().toISOString(),
       };
@@ -164,6 +164,46 @@ export class ApiAuthStrategy implements AuthStrategy {
         city: 'TransMilenio Bogotá',
         createdAt: new Date().toISOString(),
       };
+    }
+  }
+
+  async updateProfile(data: { email?: string; full_name?: string; password?: string }): Promise<User> {
+    try {
+      const token = localStorage.getItem('auth_token');
+      if (!token) {
+        throw new Error('No hay token de autenticación');
+      }
+
+      const response = await fetch(`${API_CONFIG.BASE_URL}${API_ENDPOINTS.AUTH_UPDATE_PROFILE}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Error al actualizar perfil');
+      }
+
+      const updatedUser = await response.json();
+
+      // Actualizar usuario en localStorage
+      const user: User = {
+        id: updatedUser.id || updatedUser.username || Date.now().toString(),
+        username: updatedUser.username || '',
+        name: updatedUser.full_name || updatedUser.username || 'Usuario',
+        city: 'TransMilenio Bogotá',
+        createdAt: updatedUser.created_at || new Date().toISOString(),
+      };
+      localStorage.setItem('auth_user', JSON.stringify(user));
+
+      return user;
+    } catch (error) {
+      console.error('Error al actualizar perfil:', error);
+      throw error;
     }
   }
 }

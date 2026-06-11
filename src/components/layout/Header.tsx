@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../../auth/context/AuthContext';
-import { User, LogOut, ChevronDown } from 'lucide-react';
+import { User, LogOut, ChevronDown, Settings } from 'lucide-react';
+import EditProfile from '../../auth/components/EditProfile';
 
 interface HeaderPresenterProps {
   userName: string;
@@ -10,6 +11,7 @@ interface HeaderPresenterProps {
 
 const HeaderPresenter = ({ userName, userUsername, onLogout }: HeaderPresenterProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showEditProfile, setShowEditProfile] = useState(false);
 
   return (
     <header className="bg-white dark:bg-[#1a1a2e] border-b border-[#3EA32A]/20 dark:border-[#015EB0]/30 px-6 py-4 flex items-center justify-between animate-fade-in transition-colors duration-300 shadow-sm">
@@ -38,6 +40,16 @@ const HeaderPresenter = ({ userName, userUsername, onLogout }: HeaderPresenterPr
             <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-[#1a1a2e] rounded-lg shadow-xl border border-[#3EA32A]/20 dark:border-[#015EB0]/30 animate-scale-in">
               <button
                 onClick={() => {
+                  setShowEditProfile(true);
+                  setIsDropdownOpen(false);
+                }}
+                className="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-[#3EA32A]/10 dark:hover:bg-[#015EB0]/20 transition-all duration-200 text-[#191c1e] dark:text-gray-200"
+              >
+                <Settings className="w-4 h-4" />
+                <span>Editar Perfil</span>
+              </button>
+              <button
+                onClick={() => {
                   onLogout();
                   setIsDropdownOpen(false);
                 }}
@@ -50,6 +62,8 @@ const HeaderPresenter = ({ userName, userUsername, onLogout }: HeaderPresenterPr
           )}
         </div>
       </div>
+
+      {showEditProfile && <EditProfile onClose={() => setShowEditProfile(false)} />}
     </header>
   );
 };

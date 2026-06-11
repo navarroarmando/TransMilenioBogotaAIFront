@@ -10,6 +10,7 @@ export const API_ENDPOINTS = {
   AUTH_REFRESH: '/auth/refresh',
   AUTH_LOGOUT: '/auth/logout',
   AUTH_ME: '/auth/me',
+  AUTH_UPDATE_PROFILE: '/auth/profile',
   
   // Dashboard
   DASHBOARD: '/dashboard',
